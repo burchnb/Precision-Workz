@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Dashboard</title>
+    <script src="./invoice_data.js"></script>
+    <script type="text/javascript">let logoimg = "data:image/webp;base64,UklGRkIxAABXRUJQVlA4WAoAAAAIAAAAVwIA3wEAVlA4IEQwAABw1gCdASpYAuABPh0Mg0GCO5QAYDielu/DZ4SDV8TwXGE/v7Pe8//ZydP24J3/ZdzVf5c/7jbynf/HryzWyY/wX45eNuDP4H4r/tJ/j/Qxy/dQ+0H61f378Wvznnv/F/qu+h9TfnP9a/Vv+0f9D6YeibzAP4H/C/5X/Vf1f/rf/g4gH83/mn9p/u/7e/vz95v9k/rvsV/xX7K+4B/Of5t893/L/L7/dewV/cP9L7AH8h/t3q0/4v/Rf3n9vf3//CL9ef9F/fv3D/f/8Bv41/Pfuu/f//i/gB6AHqSfwD+gffh9R/Zb/Fdv39g/L7smPUftHvFupN8c+zf4/8zP3M/5nOjwAvxr+R/4P8xP3S/13H4gA/PP6t/qv75+4XnZfxf5R+7/iA/rd/sPzP+P+8poAfzf+2f8r+3/kh9Mv85/z/9F+UntQ/Nv8l/yP8r/lPkK/k/9K/3P96/yf/h/0////+/3Wevf9pPZA/Xj/oBiSvWtNvg123wa7b4Ndt8Gu2+DXbfBrtvg123wa7b4MYX7wGbp4DN08Bm6eAzdPAZungM3TwGbp4DN08BmrLgA+wmPCEGbp4DM483RO+AzdPAQzjESVCMwArLsCVl2AAvuKx1YSTwGa4SGbp4B371D2Q4+hb19CW6ZkBb7rtvg112zmzq9upQbVTZtSxFteRybyIBGlG5Aw2OFAxWqi4m2SMQ0fNMj95FdaWxOxFwIJw6vseKeA9YVq1Ner+Xal6+eNO4Q6xgr68ELuNuuzV9yg+Ige5Lb3cWXNggwxjJwuPH2bij7WREe1ZcAIApc2+DXbUexd7oSP8uwJWXYErLsCVj5B/IVpHHj/qBvJSZ1M2WREPkOZyyGNxkSwtPAZungM3TwGbp3Xv4nHj8Tjx+Jx33dwl5UEdwb3AIz/+bbt6abwWXq0EPHEZ//xgfjSb4jKbPxdyBe3nshAX1U8nFZdgSsuwJWXYEpM7tvg123wa7bz+N2fBB5GEzYPDu0fBei5RKnFFLQX47IQdBZ2jjrXuXBcwHEEtdt8Gu2+DXbfBjCKy7AlZdgSshs9yM0Vuzzxw1/3KpHUHXmyuoCrRzWKjQOK9O7H1XcKwinCcePxOPH4nHiffAZuQMNvg1rDW092EQtqHtc0YkmGedB5ughTEcH3AhiQp114psAh/7vc2tEB8Gu2+DGCwC11pwEkrx+Jx4/E475hHI7pZvVjgbUiQCquf1ql7ZxDfICj3zLsQ0RDkigEeut5gOd4jHj8TiKm/5ddgSkzu2+DXbfBrtcdHGmoVPh2KWT4efdb5siEbvuPw2LlsQQQUwf1GfnqrxE4/rZ7it5UFbY3j8Tjx+Jx4+IWpXgu0vV4QKyYzB0y6YZIW2pVKHdF7PMhaO/IAjdPAZungM1Ye+b1PZWQKMb+YheNYRo5pRCMpZg/WHWKN7cd/AWQX/wd22VkCwlfsNvg123wa1dvrVNuVgwKG7+LQyEPQQEtliOmUHAssbp4DN08Bm6RPx+Jx4/E48fETjLHafx2y6U9XRQeyfYZCIA0scetGlD+5prBT91G6MNvg123wa7b26wBWXYErLsCVjGAN+vToMv7S08rDtjT+1ddUyKNEhlulpSRoyY6ucME+m8cdeP4/E48ficePxOLpaeAzcgWtoNWhf1fEzMQPyuaZFBvZ2T/pxgOrdmKqx/FH6cr3r7D/WEjJ8MtHL0fsqmD4+fhqehhhYVdkoYPboZhLPgmXtMjuIusbp32XmVzlGIyQUxM73zARyItzjD/wwAjdPAZjrvaq1Ktii+bbXn6sZ69Y3wXCBDWrAlZZj1yietdm8o0jhFnO+34/zJVFGgazXw2+DXbfBa4n6Kl7R2+DTDfBrtvg1222gchvXafXUBRXEbVa6cr+C/bc3TwGbp4DN078GrLhv9Ix4/E48fiC1gVFzYP8rRbv7d3hMNjRXJDX3NdKUpRixpvpDTPGoJjcI1uvoS3X0Jbr6EtX//wd22VkC2Q1SwFSCxGJjVVQ2D2afeC+xHHWwPd9mk9QmGZnby7X0Jbr6Et19CWr/sNvg123wa7b4FJynQO7bHKc+Dzm1/WtJuG/0jHj8TjwjLXw9gOgV+meI/vInIC0en4YAIpYC4Ph8Gu2+DXbfBjAIN08Bm6eAzNIPX1JgRri7+F9Zlf588BlKGu2+DXbfBrmfy7AlZdgSsuwANsivf4DmE09cEZyULFvYZy0oFtqPaiGu2+DXbfBrmfy7AlZdgSsuwJWXYErLsCVl2BKy7AlZdgSsuwJSXycpz4PObX9a2e4tLak5Tnwec2v6jAAD+/bVzHmHNnWJJ4fjZOni7lnR3Qd3RIerPARcTkqfyp/Kn8qfyp/Kn8qfyp/Kn8qfyp/Kn8qfyp/Kn8qfyp/Kn8qfyp/Kn8qfyp/Kn8qfyp/Kn8qfyp/Kn8qfyp/Kn8rpttcFtS/JjyGXXuuBhisabwFlEtpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpytpyu9p5Qt5j3jfJFxeVgA0R72zdculJEnYu8Qq9DJMj7HldKSII2zigX82IDyWxA+xLRJPCoqDlSiim7b7eRxbFY85GgjrjZUEcB2bm5bAbSgPQAAowCU/ZVgv5LzfgX81JwKxJ8B28deBVaunRLs2igqjBzU32A5Pm/KN2ycfgBtKBAGddIXXOL0uVjo0PMcLv8lSOo+1xqZO6fRRAKiEyaLDUFtRZYY/ZLxGEkait0BUkJcLKB1k8htoFYJGQpPQSA1fHaRpLHKCajkhFReN8gI2c0mSFWuuwtLpzi2mo+KrzSWuxjS+aEH4TZpn5c0ekRO/Sf6CqAHv5bt/jvLSuE4bU+GBcoETKR1TqnXdL0DeYZ5nutbZQfRnnwaek7s7lx30RUYL9YQCPBNQ/vDmqQuz7uTB7uTB7wOfYVFfZsPnwmHx8L36WsTJ1sIC4QZY/mWje3uSIErb7nM6U785tKbfcLX1SH3Pyx3sul9OW/NT9e0DPnSa9Q4e511xoB/sgV0mxOfaVS4HoADGfTZJQEt3w6/7sqKBzfmqKpoHZ47GDwLfnnBme9As/W0QZg5A2zA5sj9qDfr0v37hhlzLQwAQF4ur/vKhe9Eaw+kOjD0WvZKSdMqot/hw7hGDEuRDHG5ynijdIayMR1JOJk80aOgOtKccLOTRcp4zfAEK04ySMA6Eb3Ow8yUsWH3Bqu/1iIfsZy4FdLJGmfQfEMbsIZX3gcoy2xps9DRpf4BdLijy6c7tzxbPWtnxldNBFMZ5yuaE9acUn5dP2Knk48jtn0wjTcb12cvsp1Pj17S+CGcyAgPAO1jdr87VvwEVUWRHIhBcVv9Txic1gR7J8tlkA/eIV86gHSkHSaFLJP+JNLFILF3vCRYVppJrjROFzs4uM/5uM5NppnIrthiSHGOothF2INqc65CbIyJjGBBChNSmhkWYMdW9WJ4Agp/SYQRDBB3llCUe0JkR38Xo/5/2x7R1Y/7ceDawWOeyC1Iu28blzyH30uMx4o8YP/ySq5JWXdT8C4mxOgVk4VXBeN5aSlnce3u9OAJdTZK/uVOTcLuqIpO48So7yVdsk1s9XRUQWpma69Zxidhdj9vgDF+X1Py3o+ovI/iTzbKunZAJEawISz+95yby1lwx4CMGfJsfSEVjye6lBg+vxbJ3+EaNZ4tEWorbjxFv8nSHifxN9PUpLbgWb1FWxzHSMBlX98R5lGam6Dee7cimRCWCoqPEWPyqDmG0zRsFSn+hZB2Hx6x3ICbGEhhxlnKVXNToXOzB8iCCrpnrl4hbIv/2TI2iE+eLDtjQl+JIR5gAxJMGhtI3gXELgbS0lrt/uvu9BBZ2ymqppM129mGWVpt8wbnFIYpGV9Yb+H2uZXP3lSj3W5v8kMAhuCCYjd5555mEX3NqOeEtV0XoTdzCe/2WVnrecOJL4u9b7rqbYbiLcuM4nPj9t1FdKYYuJImRbjnv3ZE9+lNxqoXo9tRv61tgGgMPwR5tcbxfkpDN3nmffNQBEd2Wn1GKucDmXoNMMOx+bIGrtTizzbpPl3mUzUzE6+vMJxpZuhD/O+JP1/ORnR9mpxsJAI/KOph0Yf9xdyeuKHYNGKS0mSav3WwuHDQPObkrYp1LLNVvRdtbvodSirqjBELhFbw8ZPNr5BNAaNlDimLucRc8BgOp769bGX3pCSp3iQBxOpeeanzHEpLiCCbpFbMpH1qnb5w1Y/6pFBkcGDfv6UDY0ePAjf5SQWWAc8fv0O/5STHViHXGu+ca7OTe80sPFRxvyaRwWIAnIV0TYHruoBDtjqMjpf3J6JSky1FA/O0pKRWcKt6fklvd1Hw3Z5I5MhL4N+6awLb8yK1vM6ly6kcZL1v0ojBFqFeq3//lKmrh+0MP1ebvnlNsPBlMdDnZZR5oFeshjceUqvikNAVe8TK3ALC9EK3rKm0SMGguHP/Crh9nHO6gcc6AmIVC//jF6rl/OGVWAV4txMIQxrZR7vDFDkJ5hhhDa6MwjR/2znhU5kxDeVaNW//OcDyBdvKuCvTILiGafwV9goiR7XR7uA5LBqgrmqfnsXJLkkUtrAZxxgartsoahtjCXf1d16EVnFy+MimqjuxkWXcOogTS98PLpvlO3a5WXKQoJ/DN44+WCNm8K4hX+S//Om2d6WXmbpPCrs3+fKWIsh6U/W0SLePfZpWxSgBhUi75WraBVwEA9uhTm6QxteQrXwcAJSk+OyFWI7f87H0ivUjhY+KkuRXBFIJCsm8EZtcJD8M2L4q0ujPCsrVdcaIoH6sJ9fXedn8t2ltX4FiHX2FGeC7/mx9z45aax3zaBH/0GohKHEwarbd1r3uq0lZ7TO53HIe+dEMIQBxT/KeV/Cvwn1KpUR9Ajg9cIh6/vPN3ThgYbeCgVOv5hFX9QqWz7twG5yDjIxuAAAAAAFKQj9BMBVBpYMhNCNz0YvPpAgz507dYAE28g+y1AeeXKpGfZSpqdTg4a7jaT/sIZLs2NMTOphmIypW2vOkUNacPj+55fxTrYQyiWPg8W++6RWzrwTwwn3h+yqy6oWU8L1lZkocVYkN4aGhfjJ+Ba1fS+zUDsG8wQ28N6O++hHrBiy/jg1dRMhe8oFIYOJX5671KzH35owWEN2DdZlHqOZvfr6RAIe/0TRyYeV3PPuxIqT8D+uozXFA8duCj1Di0qjS8cvj+upnh85wDfKuRbXUFTU32Mr9/An7R/mrR2/9wwT2EGISc/NlAuYWq0n3yLVRXWBxi3HY7P/8lliJI8igjdcGtai6LQcYjuQqaqY5fvuCAGr85BB2PHfSFI/Bh7QFG7wMTgKfCNl8jT1LbOUaRvECa4ozoKHPqV2tZ1k92sVme98EBwGqKH/KHgUFMRNv2xD3S2IWEYHOVsZEBCLA/FLFRPtFW1cLzzBX7vKxNL+xrzGG45lNkasyb6KGt4pfH1z3N7y+2aQZbH4IRdD1FueOAJQnDZQSkoMfhqtmXP2tWMsLuPbpCezvkUQ1ywWo8EcGcFEBQ/RGTaPZqBcMDjVAJi+aFoAc5gyKmSArikf3Veyq5+k6B/Js2CSHoPAqPrs6IH1Q8umNqWIRglDswOm3R+9m2HZldo/uagnZT2FBhx8sKP7wTDSfzCYvVZgrcvzWbiQ9PC5DXjzfGkt1roScC2zqdZSiSFuhhbfYpAGee0N0+KiprfD375KkB8ocYT6i8u/Np5sRusQ9w1vulUdegoNBBgN+ysiabIW8xFn0GbhaBkv4RPiMAYIeBK0D6oKAOprphoyztPs1NPKgtz79Vr6n9MkH+BLIYX4ECyRmlqjAN/SokHmA3TR6b93hEV+sezpZr6rRnfHN7p55OWq1GqMX0eerC1Um0E13cLwLq3Vq18OsoYFZBqUuGWkReUbmme0UGFoMlxLLLj2ZczvZCiP/xTBdzwU7EROY320v20PEeS+9qkQyMon4kO32opUshtuswoQHI2pjTsKf4IgXsSb46qntUlI//yAHf7g6DDBckWqhIor+Au5XGh7VAGbflbXR//z1drsasVICU/0V7x+Af1hnR9ZexkqxM3sHDSLf3Ts9jcG//zD8thxXhvyf/5FTc7GFKkDt2Bm7an0EJdkcTBooADUTc6PyiKI4oFdIPbE5Ne0Ruh1UX2Yd7aI+74cwwrkHQMIT8qR5BK709njaXbKaR6NA9k+WcAMlejAHmjoqIducy3iA9QqOBHJbxUNZ14jyHKb796efMggiV6a67nF62W6sgfCvA1diIabLOjUjaquImVME5lpwGrWxM4J1FNL0BmJ8/2ISKOvyftx4H8XIuFGeheRi8H328f2rExcgR8I3bmGODsnOMm3+ZkAcIFYv8SxRJGIcookKwhZWFMkB6bZs4Y5kLEPD6zaJuqK7qvfjwc3EGQMrSFOnd7nAIXNKpFcjvUvZ3jXOnnwP6gbWKXNtVi59eXnK3UaFf0kcvQumBxEVjNKGaUNLkACa5n+y/8O8kewn98n95rwnopwe4EUAtshsp2c/dObM61BPZ1uKssSKUTVt0Ja67auLqxFyBnpW0vhUP2uZYS67VFfDvk8mh6JuWxOrqw6dXZCnI0vm9sYMCsPrRq50zocjnNWHzKOHjnNIrDDdtrw+y99V4r7ExT4yv6Hi30zFJ+AoUZrnnR/JMwjlQh4BSzMBXzs+HuRxcm/UP5LSB1jkb/l1gq6bQRKmMOHbJCwh0q6mOyNHR7LcEAxDPqBdfQWFw85WZnGkiCP0UuC0RF2FaN49RPxvg0iNhjktZ4ILs9eqbK9Z7dAGH37gj/a36Fdt2SU/V9/if8M2NgqBqEDpajYggAzfjoWYPYisnVl+OHF+Gm7S67s3T6y51nlqnOTiKhfosznL49BBHJ8xvZM5MlfBRTawfkos7FZDDHaU6UOJrkroK2k6zp1VjfBIKGJyCdqXCuSd1967hkK69TclXKqTSiu6bRc0VVb/EvlgSG8HtZmGhdwUWfWv54kzlgx74+7VXzOaR6qYiXN2/HNaeofhw5VaF0yUNxhR+Qd+d8KTnTGBvEwDrrMFah5S+gwJ9BhmQ/tX5QW2AgsOu9Pd7n9QCbocTwWYqu/dr1RcNluwhgi5IK9bIbn2TXBeKAwR68E9I0VSYCoVd4Gnep2efoOZqqRzItbLi45JX0rWSQj3prRADu+Bu/41uDcoRlfnFNy98ES8MiVhCPwFTE0C/P0vxjpgp4oUFKbjfXBkpp0PeQNNzapKytB5bvP2XNDco0TjMZ09iBAgkPPTL77XFWwMlrVPqcEICBnpW0vhUP2uZYS67VFfDvk8miM0g1lVhNbB/x/iZ52ZmJbyE/X7wYAX2RKgckWeeIDLEd4lcUg3rjj+emLdH+RPzWFEKZwTFIMSurynElnqDEhINENCITJXBOe1H2S6XlI4VVHRsSMO+OIBpIPhliO/7zTaFpaXPPVKANPibnSBMHwYEFkgIo/m3oFSe9Hsajhy/F1whZY0Eloj5U0YvHHgp2v03Si8Je1ULeQ1HIcVG7NMI9PcLoTMpnkKfkV/WENfNQ/ou+tISiDmzYu8eCKB6Hdh6IcJ1+kW1EkptOdcIhg/Y7goEBYhN900STsBu9KLFSu9AtWogmnu+3HES6AEq9ZkYYIkC0dZjepQYzi7FUzSJhqPdDbjaaodM2ejBuXHL0HGjsInkxT5xjenQFGyNAkYy0oGk0fm+rZDJhD8PazdnfykU24tT6JEjLhb6dXxEvih0NzLau2yZ4FnUT0yQ/0mcDtfw3uV4VRcxHr5HBTMdWLcqdmb1YHtox/n3RQGwGEaUFfrRPUrJT+92eB6LotfeN167rpAEkuu1V97bKMcMUZet9/fAqXh/8Cwp5KnJNrKiBnjJMnjx1JyzknIjvRLq7b6Avp0gPP8O8yhf+ceW/ZROcAH989gv4KttYN4JzFySWkK8HitRb7QIqttHNso3d/6664GxCMnGwTzfTiOu6ObYdTgjWD+wJwmmEUBKcQl1Y6a/pn4QQ+L9m7f3CSd6ao4lT7kocptb9+2WpcEnrXTHuVPM50RP+JEKBzvOTnMWFSpCnvDX8hVsqe/2bsQqjkp8QIAYGFpWkEpSQShAbNXbwwZwjj+rg1BIBdaX5YMlPJhSPWTIuKs8z1O9egA/k9lkt6e9nka/3mfmvZSWrFeZkMvVg3XLDgVB6c98dLLOtHL9W4a+EdYZfV+uPBY9iy7i/UEDKAAEzrnMoOnkvAmuBeTR67oJKWrnCh5H024b2ah1XUYJACLRAExzeXadrzUjaWHZUSALkobGrJ//kvCSegKRBNXT8UQ6jH9OKmeNJ9HI/99rYgHGflzOFYnIqpkGHT9cHe69cadqXshvbaI6b4wn3xBz24JtiHTwMj+1ynuh2xwZjzGtX/0htEuIrJ48nP6O4+Lhbf1K/TyQzGTnlChogyuc3cB9JRKpJ+ojyCaL4+3JhXDCMfFWfpFh1jmHtkTuDjCyHuHZ4Gv1S86NR2wfqhm/0H8TuT0GfZoM2cK4rgRpn2msSzWdWYycDeeXxILxTYsfZ39GS7sWldlFfjvfetupqO1g6HJ04G+AbBn9lW8cFKoM03bx0ZI9OuNTynR1NUruc5a0e52otu9DO5z9T5AC28Zzc1b9KzdqcV9iRzDK5tw6uchqyuEtBQe1RpQ9oCemfZL5wtJx5nmaSxzkIfZohSgArv/8DOqBCJ+reKhNjnp27d05VI5p/F0AGpYl1RIZAPcT9VD0rXE7LZWP2tESCuRCjWkrt3enfYsUE9UnNu+oeo7axai1QdlhBte6iGJZWor67KgZ9lJjlopZDO+6VEgnAu9peaNBZQWvIWRNGEFHcRSFkqlLPKBB5OsOnTyc8M8npj/CPmiNVDI7JSCEhotbp5BW/BwSHP99J7kp0Evg/zhs+/0gKYYMblAuMP/aWS5OytY0kBqqPd2RRbF2+8sXf62XgAnHAVlGbjphpmWjGQlMR8MAemncfHWDVNmIlTV0AmN/NR/rjuNpDOvLl4V6Z8KIMasRdDLaFWIuHMO/LErHjnkvrX9SjtocGXyKULlEd/NgL2/NAxyIvbrtHCvo64mnDMpY2vwcuzrZv115qtyBQIJUKhh++HFEiVbgzBPMrTKrHtnV1PbLOzEjWhN6mQ5TDUGp2Y9R1Q4y1B0Y2xNo7UNgn2p/+1wQSzGZFHy8AAnbQd+NeBf//9/0zMt/wP+erRbZecdQq+9Jo0UuIgMoDGILf/84peRdAO/7ZST5abhPQ0OtS4Zu0dqFeJMKoZQC8TwkqcyLTBtcS94dhCVAIEsqKxvo6y9zvaFEXYFruwwYPJALp/hEwHilakMWXXSYBSSXgJUBLGjJnkx5Hq4ihHkmBSqcZEjfOyJ/XAUcVW2Z6xq5rTUjs3CgsQT8ukycD6Si7KKYUYSxi/86OAwK0rqbs7vtJQPW80u3gIb+50d06Mc1O8rnzF4f+wtBQDI1BgR+FTD9RZEJYCodOcxMO5hGJNzgkGqO83Sh+4sKRWwSx5dfn0AdSyLH/ppOlg1br37uTzO64gO/ZQOWazxQOy1crc26SDUjnr2yA+dUbq21Ql8hGB2ogKWQQ6JzCnU1rTj4dzELE6nwX46BR9BT/5MWm3Zkf7JEDTXgEZc2fnwrZKotg3k/VSq8jBQPev1neZ+j0dNd/jnol0ENYOiywnvx32v/lgDuBbpHiT0x1bU08g9kkpa7JHEL+ZyAASi+J7mUAO4govdrO85K17cEUyo1kKC0ooLlGKvLPG7Sndt2NQkNDO402/dqFYQLPgu/Q4iQY5gmrGyRF/SCIVfpWUsZ60hA7bcWP2AvtXGix07HonoaXii5dd/CYvveGft0emSu+l0LJdLk9sTHpyOeZuR1qrE9cJebksHpbH+xbwyuW1hgVHRwy9u+oq8uB51LCILS5ASR2+plPLkySAG7pxvM2ACcVn2OA1eVXRVqJp6JwzvG/4HQoPSv+B0KD0r/gdChLg19WSY7t7rf4guYWPGvBXYwP4eGOeFK2cDZW+L+jh3yWONL99D1P4XMv1M2yxycqLtjerhI8z97lhFAZ5JK9i+FtwzsDw6J705ee1nlT5wVaOEcY86BHVUFxI9IRPAEylgE2jE/u/Mh/EUg3WzIWSxNGiP8/1179NS1xxdv58x+5XLM65vCmNXSGmzILZG9VGdYVKRoTnmSOfS2QA4rZrb0uT1tCMfXuLr1SZLzUVufJpBQQnVigmixIf9whvRc5eSvsf02rgQeqAAhNpIDX0y9FRhkFZP9VJyaFr7fi8n+xIj0U9kSlxpu60+8GTesHuG8f2byncsLI0cSMq2LS9fhQOjg5oGIw0OlY+LGSH/B02nluAOWeXPsgNCHjF/BhHOWPJA4huopThNha//15lvg+XgT5LTmBK62oTEtIxZ+ADrSihjwv03m0T+wuVOfptuLqUJlJWadPR/FaBPM+4w6pUTpafD+lrCjHlQCOtxFuc/7idJwLof5Hzfp2xALQsW/5deH3Fk4oqTKuE2KEUCredZRv4sbFR/sUnp3P3HEr9loOpWz1Rm+YcLwAAAAA1RqRHHMF88oe7jgSqveIWhNGyFDyMJwS10Cp4q9mdJC4T33TelsJrrU0WYp7y6FR5P/xiXMzFbIAX5kQqsjYPQqTxlq/g8fjBpf7rFU3uYF/sFYS6pGG+gfg4vyJa1BLkNC8FUEThpK11tqJgFNmMjrzMy3MrLxGI3zhh0gLvF6wnrPzjbqP3vzq1xlWJzai+HIwOZGtSxCPltZrIJ6hiIuSlc45aKTv8e4IGXxyDxwAw5v751uEIok5ralQzAWeo9iPrGafRh2J5SdNhf4IfwAZXpdi30+GGkHdHhR6Sa8w++UwXOpDe2jpQNoPHPfN//4T5dV65Ju9xzZXqs8LsZyrhVYOBFoy+tFKP21M3HySagNufAjmHp/+UmGyNoedhDy4RdIrpSVchc4M8XgLQ9ZcwE0Blzj6zS4gj2Q1IO43ZMN3rsOFtSZd2s4B6Pvq2m9IvOWbyitAjxn1AOPrHqU/v8qiWvsSi1ftMgxTlAPQq4OYGRVpsmb3/tP8buzqAQ+A7wGyPbuWOmnLVKkd/57MNqZpmFhUNt7Qhdj3BpEkAAAABuE3Oe9DbVc6PMAATKCfLGdmVpiNvWM9OgU/x4I5LJHYdrqsBOVNnhbDpcfBMvbDYV2IUzIB4wJhANfjBADcorTaqy0FZXmrwodveCwWXGvs3wxLsfu+iBpYEA53t8io8ujEBsdzCg0P5n0EzG8GbwyI3Cs9rkj7gzJFMnIPb2Mer4F8SvvbXTNCQyO5DVuHIBXWYyCk287Y39mQWSgygcI6PPnJ/QKV/Fxhqjx5TEcy86giq9boMudld7zkRQ5jB/V+JyVoOZJTMz1kZRMeMt4J20fIZKDStQpTsNOHC7ZD8oobz0RWLmQWN7Zv/rtoKQy9SgUjglLIAjqR6MStr6P/tg2Lax6FoXlaip6GyUBCYzdFWRlzWp5HS2WWSO9fWSTf7QhE4fHHs6DIzw9eV8DeHEotPVNcR9/x04PpWBjTI5PK6nAC2qwN5Gk+9W2QMjAEBFJlsx1BixJEVN+LhDIOlJyjWiXygV1jksXsPXG48zznWhNw4FPtfLwR8FX3CYp0kmOvvOVKKqj/h3udHVlhA6Lp87NtnYs116lgnNGGoRXzD1OBj/uwvU2ojHDiBBhMJqKQrHWsqslVoQlmkw6mzBo9hTDbZg/2pI3EkuYTPg5IzhgrF6zNecaEfgWAEk78Fdi35MLpLh05xkxxVJUcT/vQuZ1BenxPD0CY1nwuNEYzW/owz8eiTH9H9gh4z3X6e+iKh4dQIenJn+AUkedYfzRcCuL07D6ZkkhjUIFMoGS80xf/Y8BFjV6vmsemvIfhEVyYu3CNpI8MhaM9516WTH5ie7KAa7EGPajkVStK2w0XSTuf30SW3iB9758vAIVZQf/hRj8uaFA5xlEd9d1o3yK/bDvAch8bzeMNsu/iIbfTbvEXNZCfG0VfIL7q5NIH8rxso19As8JIZYkrRhRP21Je6fsc7fSfMz0KmOD3+6ebUg1QOPrDjJeTKyuMTQ8/7UsM+oqynKm7SEaEsyWbsdxX50wpiTurRAMlkRgYBYU0tbL5Vufg+AD6M12kQijKn+8otjjLx8IAgqDVkX4ML3oRClqsqcg+kTDTy5JsmjjJP12cXYAv6eIhtcJt/8AMRpqoI7TXglO+/U/RenKP8zWUwlv6kbDSM/ZXgoZ400fJzl6AjrghcZIGVX26Em+8sjUGAkEJm0YIMPDHL68v/Vkf8NC8Z5t9A+QiM1wT4F/RkIKuqlRpetYhifPilC2tZ0PoutO0/KiBjGvadWXbzLHSv6biY9Zg/prtScmVk8Gk0fosbHQF4ca3QZ818ZfftHuMBCLYB6ChxA6Hrzy0RKG3O0+ASmRIae2M9sDYXr+GN1er9hfi1lmkP/wz4OKsq91rFiZUuvrfs/hQFf/XH2W2lYfcZ8JfPaQ1PahELFes2up+bKoYLl0TBR/grmYUtsb4N9vSWYQAkDE5fjHlXGGGpdmr9XJh5N1Q6zLdAD/attgY0mkg4T4YL6kELEtAyfXrt8Ke/e65HhJ0HY/8vwjHPjQhKBsZ/cZqCIAVKPCLP8h17SH573ZoIC211kaic2FWlIrpOCTqK11H8WZqr2fY13qfkKf4P08A8B7d5DxKEGWEvuaZ86vY9PYtUYQQJO2Jk0GR+An7KB7IOOadHFcD/VWhJXafAe3tg4irwoZ9TBlRpxPyMKWxj2xc7sm/Bk4cnCEV4VWtnaOlpr2Spb+OB0BUrxxIoe4+fVNkoX+8hfXmppgLHTmUXdKtdobBE2dPZXueIrKo6+XChLa7Pjis8XxgJQ4CyWH2KMGVP02nsYPQduVTP5QrVdJ8UGwTaD4L1L7QgM5M2dWfzHLAxUt3jn7pVHN7Qjn3N+t/2vHeR/JJBkj6EOCSqqRvt0tRUSk4xoOtXPQvyLbQG8qxgPLXWqYwT3LVXOjL9h0YD8SUJzeU4waB5/+lmy1PijKZksTRVJzImbpMiQolUhWFyN7gQGWZ1fHFHlUaWXTKqjCxVRKMfD206QQVKcfh9rdcU5SsHypbSlDH80aTV55r71rgpOinFSDXiyEd8VeeECSDSz+r1Yf7gNCWuMIROxdwbrHkGuuU2R05s6hZf0b9MfgNdI2/hAZE+OLpTFKbxr2Yg5/pX3Oi6RDC8TAZ0Pwfqra7fELDxg/L5vTcTtSpjTUtZts/N3+WIMm0hVAPryUFsT1sUvO9UYon50BtUubErO7LOFLTicC89F3krApFohaE+oNQr3XLYALyEm1HERt/BKdDciauDk2ddDhnqIQn/UP+S5LZDzVVdaJIeYZj2PZeP9G5cBx0lRFENaSQNBApjGtRiicRTfsTNQIULQzslcNjIaeXUdqOV9kbclG8GDitwDVaRwBSDpEpCu+YxJsTmYDhZP2k/cPUz7I66B4FoRFOoq/H2UdFyUEkbg0nTNIWujDQHiE3NosSWM9qKjpZeZmnX3TBp/Ldg2pu4UDKr/0CIs/3pRenKzYDwG8L/Qbz0W+Wkqo3kF46EJvYqTFpJCkvsnHGCCZqaoyo78yWofcziB6WF8cX89WmNP1mgncKVLkRKu5Pv0F28hPpLOcX+iQhGuOD3z14zPsj3H10C8XXsoYI3bIWkCZkFZfH/xPPflIlIqFfM6uMXz288VJViJ/K5mV/zgwpqklX1Q8bYfPHOv9u3Z5EbO8fCOLMRJObov+yjWPReDM6EtpfU1dlf9WQpPyyO4HKqt7AFLuYob75HNYzpAjCBZ7pAt9OpXY3h3JYDGpHWhm+39h4grEw+99fs79Adx8nnr+86RILBvPtJz+/rVUBYb7EyF1LWC/hcnhgE91mQQ9B4kwMfjMhj9JNc5ljGOYkIk7wbswGLEFCP3TITLkJZEIDNWzhnxkn46Dz/XGa0zW94ToPPNOwaBzLHZrlgxohLLrE1mB6AwsXUgJpvjXACwmz9MR4HN5BibtzhQFYG1We4w/KF4VbsmJAkNaDB1Q76HSNy5Xdbql83JRXfIyQka8izRPU2gl3dSMH+XtbIQKOC5qaqVmRdqDqtEtsC2ThrXMUqr4SdiSggtNxmTc7jalLW/YOu1SL12YRQk8Vvz3EkQyfrb5zmbh2nvehByVrZzPi9MVsJRm4YLXLyxjM8ZY/+kVIS6Q+AAAAAGnZ18Z+YkEi5klWwBLGMD2Rrc5LbUnJ2Uh3wRIQtiWNfk+CcA0Lq+CF/FUKjfUt37xXykM2ld7jFuLrkGf9Kk8xo9veG4JBG9WT0y9mYA1AqoEKrGDRxz/dyOH/aajZKtDUHJaRn7XHWKg1UGowviWq2zFKEn+GHmB+JaSKvhr/ZmMd0nCmn4IOzMA3PMwmERn9hm6AHnZE6Ux+F3J9qxN8LuyVc5QJQelXBJQ4JYtITle2GVmYhxBQ9yJhaIe30/QOy197bb7LhZb43JviiOoLSUjp1FQ6aJKPVyW36QYiMPJ3/Bj8VIOPZrglKhSoJJ+S04OfBvuaIDYzbxakR+uourXtq6mG6SIJcon+Vp4MJtKKOg/YtozbwUPQ7vwfkaGmIV/zMvv4NxJgZU6F2XVCresvL22mmT1G1lk6TYvjugpJ2KuJYHnKvHDsJGr1/mgALL/ovMquEpdz1loVj8r2dPY61kdv6s4SbQQK0NEMQx2lSXoBX2EgDNYboa1VuTWqTAZ3FsQ3t+j05tQ1ZOTbZiXp9hJ7Z6uUDrEyC0hfwXrcgWQJnuTi/uxCv9XPuPnZDJLTRnp23opDVHDge982Yv6+SQHZsa0Kszx/XZ8dVBoHSnS3wOKP661rDgu4CYaKVIHYIOiEurbLgXvHXWZazfZhjlW7PiTCvpnf6YMMdJcnCYD2ZPHzqkTTCYN1s/8KxInhq9M4tSulQ9xia22ExcGp6M7YpiaWcBwS6lrjALDK/1G8YszAZFVWv5DKUB1Mffd0SSgKlg2v5DKUB1Mffd0SSgKlg2v5DKUB1Mffd0SSgKlg3NMW99IJX1oe81Q95qh7zVD3mqHvNUPean/w48Ru5rGRrr2wl7dU4zP3rHXz54GUcRHB5JuN5kpFLRQrMvN3uWs0MLuhgkOMoLBJolgxh4KTffX5XWAF+B9hKW7mOV2WqHQLlqPU+l7rgicFjl9Ol+A7BVQKWKnd0m7vHG1Sqp5p1CZzn4cBbxZ9CZROlDWXgP1eHzWHoBtYiIIN2bSFCrI347OXbiXVA9gOULvBB+di0Xsnrpb/Fim2OFCXuBJ7rwi6P+783mBfJtVaCeNOcsStayQ+Ya7GMEBrYhYT2kO9YH4438P33GAJxCNumFieLomlNqTAvmgIbUIsD+Khn/q47JfTWAt9tfaBURF9L5SgOrfYB5GOT8tJ5NvVkyIvSvEzhoO0gI18R3pVRvJF1GZ42TEK8HRRLYWcUtoNFdYSRVZ8M7jWnSsSnhX+G+dqeiIdvuSAyh7w3JK4XRWR4I/4Op4pvAGKVRxaB8ybV7ZOYQZ6+s4g7eCLoOhAdvVA6X18vBMYWZn0gY7agV1JdBTqMo1tqJhX2QGsW1sso7hn3AxCyuhm+6br6PwLmxXo8kFOSI8ITB3vx9cIUAAAAAAAXEY3c5pt73XIgU9dofFfpHtJAd/SPaSA7+ke0kB39I9pIDv6R7SUXTv0PHXKYrLgVY/Izd56AH+5EC4Et0O2ZPa93tx+0hqQ1Mb9uai/hQk+6VtkGLc+Lrw9MH0bdq3l8jufZ9Cet3XogVtkvn5MdRwLmkGc8KAmGuhIWYU9mVDScQFdyRB9J1ZvOxAk8JQQgC5uphMdi5aeZmqd3XUDNjvf4HXoPe5b1AYIiCYRXg9VhxMDrbbOLEoRcfhDC1lZNwa0BdUE6VoBnPS4zV37C95wY8ONJmvAUOf62JZlPqQPao+fIcI07ccO1pvvJKvKi/JjK9Vsc6pgGaXL0MtrXlNmTmo0VGyC7EFdjVwSpMaB0etrU0BPBrClXPfuPP1KpzDNR9Q/uqqznRcZkXkQGWyuLjd4Cq6zadUx65gZxdjMuZcy5lzLmXMuZczX7qvdRxdh/9Ex+qrWZbjsFYCbb47BWAm2+OwV0TsJM7uKOLW4zd6Xzh1AWrhOTyIK5HAr2Zi5KQM/tKRrlJr7XeciR2GJlVhSy0qomcx2KJ7BlfT7VZEPYqVgJtvjsFYCbb47BWAm2+RVydp4VWARHOStml2pcxKilktfq2Mdn1tHLSjkgxxav1azfjY+ZIfZbm5PGn8flaUW9JAX10vFHhTNpT3uFM/LFvi2yQJIHSTMY6f4YQBwvDNf+ia+uncrGMdP8MIA4Xhmv/RNfXTvIVb25b5mafOifbhBYVhZTMY98ExyZ9RnAfBa/Rk/VeZ3SBkIfY3s2KsYgVCd5Cre3LfMzT50T7cILCsGAAAAEVYSUbYAAAASUkqAAgAAAAGABIBAwABAAAAAQAAABoBBQABAAAAVgAAABsBBQABAAAAXgAAACgBAwABAAAAAgAAADEBAgARAAAAZgAAAGmHBAABAAAAeAAAAAAAAABKGQEA6AMAAEoZAQDoAwAAUGFpbnQuTkVUIDUuMS4xMgAABQAAkAcABAAAADAyMzABoAMAAQAAAAEAAAACoAQAAQAAAFgCAAADoAQAAQAAAOABAAAFoAQAAQAAALoAAAAAAAAAAgABAAIABAAAAFI5OAACAAcABAAAADAxMDAAAAAA"</script>
+
+    <style type="text/css">
+        /* Top Branding Layout Rules */
+        .branding-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            justify-content:space-between;
+        }
+        .logo-png{
+            width:150px;
+            height:120px;
+        }
+        .company-title-top {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .table-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        /* Graphics Card Container */
+        .metrics-card-wrapper {
+            background: #fafafa;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+        }
+
+        /* 3-Bar Graphic Plotter Section */
+        .graph-bars-area {
+            display: flex;
+            height: 200px;
+            gap: 40px;
+            align-items: flex-end;
+            justify-content: center;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 25px;
+            position: relative;
+        }
+        
+        .graph-bars-area::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 120px;
+            border-bottom: 1px dashed #e0e0e0;
+            z-index: 1;
+        }
+
+        .chart-bar-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 110px;
+            z-index: 2;
+        }
+        .chart-bar-outer {
+            width: 100%;
+            height: 140px;
+            display: flex;
+            align-items: flex-end;
+        }
+        .chart-bar-inner {
+            width: 100%;
+            height: 0%; 
+            border-radius: 6px;
+            transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* Status Tints */
+        .bg-paid { background-color: #4eb96e; }
+        .bg-pending { background-color: #f7c133; }
+        .bg-overdue { background-color: #f25c54; }
+
+        .chart-label {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        .chart-amount-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        /* Summary Breakdown Row */
+        .metrics-summary-row {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 25px;
+            text-align: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .metric-block-label {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+        .metric-block-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .table-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        h2 { margin: 0; }
+        
+        /* Filter Controls Styling */
+        .filter-group {
+            display: flex;
+            gap: 5px;
+            background-color: #eee;
+            padding: 4px;
+            border-radius: 6px;
+            flex-wrap: wrap;
+        }
+        .filter-btn, .main-filter-btn {
+            background: none;
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .filter-btn:hover, .main-filter-btn:hover {
+            color: #333;
+            background-color: #e0e0e0;
+        }
+        .filter-btn.active, .main-filter-btn.active {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .add-btn, .save-btn, .import-btn-label {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+            display: inline-block;
+            text-align: center;
+        }
+        .add-btn { background-color: #28a745; color: white; }
+        .add-btn:hover { background-color: #218838; }
+        
+        .save-btn { background-color: #17a2b8; color: white; }
+        .save-btn:hover { background-color: #138496; }
+        
+        .import-btn-label { background-color: #6c757d; color: white; }
+        .import-btn-label:hover { background-color: #5a6268; }
+        #import-file-input { display: none; }
+        
+        .del-btn{background-color: #f8d7da; color: #721c24; width:5px !important; padding:0 !important; flex: .5 !important}
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .badge-paid { background-color: #d4edda; color: #155724; }
+        .badge-pending { background-color: #fff3cd; color: #856404; }
+        .badge-overdue { background-color: #f8d7da; color: #721c24; }
+        
+        .status-select {
+            padding: 6px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 13px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .action-cell {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .mobile-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            cursor: pointer;
+            min-height: 44px;
+            white-space: nowrap;
+            transition: opacity 0.2s;
+            flex: 1;
+        }
+        .mobile-action-btn:active { opacity: 0.7; }
+        
+        .view-action { background-color: #e6f2ff; color: #007BFF; border: 1px solid #b3d7ff; }
+        .edit-action { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .save-action { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        
+        td.editing-active {
+            background-color: #fdfffe;
+            outline: 2px solid #28a745;
+        }
+
+        /* ==========================================================================
+           🚀 NEW RESPONSIVE CSS STYLES (Transforming Table Rows into Vertical Touch Cards)
+           ========================================================================== */
+        @media screen and (max-width: 900px) {
+            /* Hide the default table header entirely */
+            table thead {
+                display: none;
+            }
+            
+            /* Turn table structure elements into generic stacked boxes */
+            table, tbody, tr, td {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            /* Style each row structure into an isolated card component */
+            table tr {
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                border-radius: 10px;
+                padding: 15px;
+                margin-bottom: 20px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            }
+            
+            /* Style the cell parameters with a dynamic label prefix layout */
+            table td {
+                text-align: right;
+                padding: 10px 5px;
+                border-bottom: 1px dashed #eee;
+                font-size: 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            /* Remove the dash boundary decoration from the final button action row cell */
+            table td:last-child {
+                border-bottom: none;
+                padding-top: 15px;
+            }
+
+            /* Programmatically inject descriptive bold labels inside mobile view cards */
+            table td::before {
+                content: attr(class);
+                font-weight: bold;
+                color: #666;
+                text-transform: capitalize;
+                margin-right: 15px;
+                text-align: left;
+            }
+            
+            /* Clean up system modifier labels generated by prefix definitions */
+            table td.cell-inv-id::before { content: "Invoice ID"; }
+            table td.cell-inv-date::before { content: "Date"; }
+            table td.cell-client::before { content: "Client"; }
+            table td.cell-inv-clientaddress::before { content: "Address"; }
+            table td.cell-inv-clientphone::before { content: "Phone"; }
+            table td.cell-inv-clientfax::before { content: "Fax"; }
+            table td.cell-job::before { content: "Job Name"; }
+            table td.cell-inv-jobdescription::before { content: "Description"; }
+            table td.cell-inv-amount::before { content: "Total Amount"; }
+            table td.cell-inv-status::before { content: "Status"; }
+            /* Stop label injection on button cells */
+            table td:last-child::before {display: none;}
+            .action-cell {
+                width: 100%;
+                justify-content: space-between;
+            }
+            /* Make chart elements stack gracefully if viewport is exceptionally thin */
+            .graph-bars-area {
+                gap: 20px;
+            }
+            .chart-bar-wrapper {
+                width: 80px;
+            }
+        }
+</style>
+</head>
+<body> 
+    <div class="table-section">
+        <!-- Branding Header -->
+        <div class="branding-header">
+            <div class="logohdr">
+                <img class="logo-png" src="" alt="Company Logo" />
+                <h1 class="company-title-top">Precision Workz, LLC</h1>
+            </div>
+            <div class="btn-group">
+                <button class="save-btn" onclick="saveTableToFile()">💾 Save to File</button>
+                <label for="import-file-input" class="import-btn-label">📂 Import File</label>
+                <input type="file" id="import-file-input" accept=".js" onchange="importTableFromFile(event)">
+        </div>
+        </div>
+        <div style="clear:both"></div>
+        <!-- ==========================================
+             🚀 NEW: VIEW NAVIGATION TABS
+             ========================================== -->
+        <div class="filter-group" style="margin-bottom: 25px; background-color: #ddd;">
+            <button class="main-filter-btn active" id="tab-invoices" onclick="switchTab('invoices')">📑 Invoice Management</button>
+            <button class="main-filter-btn" id="tab-expenses" onclick="switchTab('expenses')">💸 Expense Tracker</button>
+        </div>
+
+        <!-- INVOICE SECTION (Wrapped in a conditional container) -->
+        <div id="invoice-view-container">
+            <!-- 3-Bar Chart Segment -->
+            <div class="metrics-card-wrapper">
+                <div class="graph-bars-area">
+                    <div class="chart-bar-wrapper">
+                        <div class="chart-amount-text" id="chart-txt-paid">$0.00</div>
+                        <div class="chart-bar-outer"><div id="chart-bar-paid" class="chart-bar-inner bg-paid"></div></div>
+                        <div class="chart-label">Paid</div>
+                    </div>
+                    <div class="chart-bar-wrapper">
+                        <div class="chart-amount-text" id="chart-txt-pending">$0.00</div>
+                        <div class="chart-bar-outer"><div id="chart-bar-pending" class="chart-bar-inner bg-pending"></div></div>
+                        <div class="chart-label">Pending</div>
+                    </div>
+                    <div class="chart-bar-wrapper">
+                        <div class="chart-amount-text" id="chart-txt-overdue">$0.00</div>
+                        <div class="chart-bar-outer"><div id="chart-bar-overdue" class="chart-bar-inner bg-overdue"></div></div>
+                        <div class="chart-label">Overdue</div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Textual Counter Breakdown Row Matrix -->
+                <div class="metrics-summary-row">
+                    <div><div class="metric-block-label">Total Invoiced</div><div class="metric-block-value" id="lbl-total-invoiced">$0.00</div></div>
+                    <div><div class="metric-block-label">Total Paid</div><div class="metric-block-value" id="lbl-paid-amount" style="color: #4eb96e;">$0.00</div></div>
+                    <div><div class="metric-block-label">Total Pending</div><div class="metric-block-value" id="lbl-outstanding-amount" style="color: #f7c133;">$0.00</div></div>
+                    <div><div class="metric-block-label">Total Overdue</div><div class="metric-block-value" id="lbl-total-overdue" style="color: #f25c54;">$0.00</div></div>
+                </div>
+            </div>
+
+            <!-- Invoice Controls Header Row -->
+            <div class="table-header-row">
+                <h2>Invoice List</h2>
+                <div class="inv-filter-group filter-group">
+                    <button class="filter-btn active" id="inv-filter-all" onclick="setFilter('all', 'invoices')">All</button>
+                    <button class="filter-btn" id="inv-filter-paid" onclick="setFilter('paid', 'invoices')">Paid</button>
+                    <button class="filter-btn" id="inv-filter-pending" onclick="setFilter('pending', 'invoices')">Pending</button>
+                    <button class="filter-btn" id="inv-filter-overdue" onclick="setFilter('overdue', 'invoices')">Overdue</button>
+                </div>
+                <div class="btn-group">
+                    <button class="add-btn" onclick="addNewInvoice()">➕ Create New Invoice</button>
+                </div>
+            </div>
+
+            <!-- Invoices Data Table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Date</th><th>Client</th><th>Address</th><th>Phone</th><th>Fax</th><th>Job</th><th>Description</th><th>Amount</th><th>Status</th><th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="invoice-table-body"></tbody>
+            </table>
+        </div>
+
+        <!-- ==========================================
+             🚀 NEW: EXPENSE SECTION CONTAINER
+             ========================================== -->
+        <div id="expense-view-container" style="display: none;">
+            <div class="metrics-card-wrapper" style="background: #fff5f5;">
+                <div class="metrics-summary-row">
+                    <div>
+                        <div class="metric-block-label">Total Expenses</div>
+                        <div class="metric-block-value" id="lbl-total-expenses" style="color: #f25c54; font-size: 24px;">$0.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-header-row">
+                <h2>Expense Log</h2>
+                <div id="expenseCategory" class="exp-filter-group">
+                </div>
+                <div class="btn-group">
+                    <button class="add-btn" style="background-color: #dc3545;" onclick="createNewExpenseRow()">➕ Record New Expense</button>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th><th>Category</th><th>Vendor/Item</th><th>Description</th><th>Amount</th><th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="expense-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    // Expand your global scope initialization
+    window.invoices = window.savedinvoices || [];
+    window.expenses = window.savedexpenses || []; // New array for expenses
+    let currentFilter, currentExpenseFilter = "all";
+    let activeTab = "invoices"; // Tracks 'invoices' or 'expenses'
+    let isUnsaved = false;
+    const dateFormatter = new Intl.DateTimeFormat("en-US", {
+        day: "2-digit",
+        month:"2-digit",
+        year:"numeric"
+    });
+    const dashboardFormatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+        useGrouping: "always"
+    });
+    setTimeout(() => {
+        const logoEl = document.getElementsByClassName("logo-png")[0];
+        if(logoEl) {logoEl.src = logoimg;}
+    }, 0);
+    const allCats = ["Fuel", "Maintenance", "Lodging", "Food", "Other"];
+    const expCatField = document.getElementById("expenseCategory");
+    const catButtonsHTML = [];
+    catButtonsHTML.push('<button class="filter-btn active" id="exp-filter-all" data-category="all">All</button>');
+    for(const cat of allCats){
+        catButtonsHTML.push('<button class="filter-btn" id="exp-filter-'+cat.toLowerCase()+'" data-category="'+cat.toLowerCase()+'">'+cat+'</button>');
+    }
+    expCatField.innerHTML += catButtonsHTML.join("");
+    expCatField.addEventListener("click", (event) => {
+        const targetButton = event.target.closest(".filter-btn");
+        if(!targetButton) return;
+        const selectedCategory = targetButton.dataset.category;
+        setFilter(selectedCategory, "expenses");
+    });
+
+    // Native browser event listener to block accidental tab closures
+    window.addEventListener("beforeunload", (event) => {
+        if (isUnsaved) {
+            // Modern standard requires setting a return value or preventing default
+            event.preventDefault();
+            
+            // Note: Modern browsers (Chrome, Android, iOS) show a generic security message 
+            // like "Changes you made may not be saved" and ignore custom text strings.
+            event.returnValue = true; 
+        }
+    });
+    function setFilter(filterName, listType){
+        const nameType = listType === "expenses" ? "exp" : "inv";
+        if(listType === "expenses") currentExpenseFilter = filterName.toLowerCase();
+        else currentFilter = filterName.toLowerCase();
+        document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+        document.getElementById(nameType + "-filter-" + filterName.toLowerCase()).classList.add("active");
+        renderTable(listType);
+    }
+    function updateBarGraph() {
+        let totalPaid = 0;
+        let totalPending = 0;
+        let totalOverdue = 0;
+        window.invoices.forEach(inv => {
+            let numericVal = parseFloat(String(inv.amount).replace(/[$,]/g, ""));
+            if (!isNaN(numericVal)) {
+                if (inv.status === 'paid') totalPaid += numericVal;
+                if (inv.status === 'pending') totalPending += numericVal;
+                if (inv.status === 'overdue') totalOverdue += numericVal;
+            }
+        });
+        let totalInvoiced = totalPaid + totalPending + totalOverdue;
+        let outstanding = totalPending + totalOverdue;
+        document.getElementById('chart-txt-paid').innerText = dashboardFormatter.format(totalPaid);
+        document.getElementById('chart-txt-pending').innerText = dashboardFormatter.format(totalPending);
+        document.getElementById('chart-txt-overdue').innerText = dashboardFormatter.format(totalOverdue);
+        document.getElementById('lbl-total-invoiced').innerText = dashboardFormatter.format(totalInvoiced);
+        document.getElementById('lbl-paid-amount').innerText = dashboardFormatter.format(totalPaid);
+        document.getElementById('lbl-outstanding-amount').innerText = dashboardFormatter.format(outstanding);
+        document.getElementById('lbl-total-overdue').innerText = dashboardFormatter.format(totalOverdue);
+        let maxTotal = Math.max(totalPaid, totalPending, totalOverdue);
+        let paidPercent = maxTotal > 0 ? (totalPaid / maxTotal) * 100 : 0;
+        let pendingPercent = maxTotal > 0 ? (totalPending / maxTotal) * 100 : 0;
+        let overduePercent = maxTotal > 0 ? (totalOverdue / maxTotal) * 100 : 0;
+        document.getElementById('chart-bar-paid').style.height = paidPercent + '%';
+        document.getElementById('chart-bar-pending').style.height = pendingPercent + '%';
+        document.getElementById('chart-bar-overdue').style.height = overduePercent + '%';
+    }
+    function toggleEditRow(index, listType){
+    console.log('toggleEditRow');
+    const nameType = listType === "expenses" ? "exp" : "inv";
+    const row = document.getElementById(nameType + "-row-" + index);
+    const button = document.getElementById(nameType + "-edit-btn-" + index);
+    let editableTextCells = row.querySelectorAll('td:not(:last-child):not(.cell-inv-status):not(.cell-inv-date)');
+    if(nameType === "exp") editableTextCells = row.querySelectorAll('td:not(:last-child):not(.cell-exp-category):not(.cell-exp-date)');
+    const isEditing = button.classList.contains('save-action');
+    const dateCell = row.querySelector('.cell-'+nameType+'-date');
+    const dropDownCell = nameType === "exp" ? row.querySelector('.cell-exp-category') : row.querySelector('.cell-inv-status');
+   // const expFields = ["date", "category", "vendor", "description", "amount"];
+   // const invFields = ["date", "client", "clientaddress", "clientphone", "clientfax", "job", "jobdescription", "amount", "status"];
+    let listItem = listType === 'expenses' ? window.expenses.find(itm => itm.id === index) : window.invoices.find(itm => itm.id === index);
+
+    if(!isEditing){
+        
+        editableTextCells.forEach(cell => {
+            if(cell.classList.contains("cell-" + nameType + "-amount")) {
+                cell.innerText = cell.innerText.replace(/[$,]/g, '');
+            }
+            if(!cell.classList.contains('cell-inv-id')) {
+                cell.contentEditable = "true";
+                cell.classList.add('editing-active');
+
+                cell.onfocus = function() {
+                    setTimeout(() => {
+                        const range = document.createRange();
+                        const selection = window.getSelection();
+                        range.selectNodeContents(cell);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                    }, 10);
+                };
+                
+                 // 🎯 NEW: Live Auto-Format Date (MM/DD/YYYY) While Typing
+
+                if(cell.classList.contains('cell-'+nameType+'-date')) {
+                    cell.oninput = function(){
+                         // Remove all non-digits
+                        let digits = cell.innerText.replace(/\D/g, '');
+                    
+                        // Enforce maximum length of 8 digits (MMDDYYYY)
+                        if (digits.length > 8) digits = digits.slice(0, 8);
+                    
+                        let formatted = "";
+                        if (digits.length > 0) {
+                            // Build MM section
+                            formatted += digits.substr(0, 2);
+                            if (digits.length > 2) {
+                                // Append first slash and DD section
+                                formatted += '/' + digits.substr(2, 2);
+                                if (digits.length > 4) {
+                                    // Append second slash and YYYY section
+                                    formatted += '/' + digits.substr(4, 4);
+                                }
+                            }
+                        }
+
+                         // Only rewrite the text context if it structurally changed to preserve selection anchors
+                        if (cell.innerText !== formatted) {
+                            cell.innerText = formatted;
+                        
+                            // Force the cursor to stay at the very end of the line
+                            const range = document.createRange();
+                            const selection = window.getSelection();
+                            range.selectNodeContents(cell);
+                            range.collapse(false); // false means collapse to end
+                            selection.removeAllRanges();
+                            selection.addRange(range);
+                        }
+                    };
+                }
+            }
+        });
+    
+        const currentDropDownChoice = nameType === "exp" ? dropDownCell.innerText : dropDownCell.getAttribute("data-status");
+        dropDownCell.innerHTML = '<select class="status-select"></select>';
+        const ddSelect = dropDownCell.querySelector('select');
+        if(nameType === "exp"){
+            for(const cat of allCats){
+                ddSelect.innerHTML += '<option value="' + cat + '">' + cat + '</option>';
+            }
+        } else {
+            for(const status of ["Paid", "Pending", "Overdue"]){
+                ddSelect.innerHTML += '<option value="' + status.toLowerCase() + '">' + status + '</option>';
+            }
+            ddSelect.value = currentDropDownChoice;
+        }
+
+        const currentDate = dateFormatter.format(new Date(dateCell.innerHTML));
+        const [month, day, year] = currentDate.split('/');
+        dateCell.innerHTML = '<input type="date" value="'+year+'-'+month+'-'+day+'">';
+        
+        button.innerHTML = "💾 Save";
+        button.className = "mobile-action-btn save-action";
+        
+        // 🎯 NEW: Automatically focus the first editable expense text cell (usually the Date cell)
+        if(editableTextCells.length > 0){
+        // If the first cell happens to be the read-only cell-inv-id, skip to the next one
+            const firstEditable = editableTextCells[0].classList.contains('cell-inv-id') ? editableTextCells[1] : editableTextCells[0];
+            if(firstEditable) firstEditable.focus();
+        }
+    }else{
+
+        // 🔍 1. Extract Elements for Real-Time Validation
+        const amountCell = listType === 'expenses' ? row.querySelector('.cell-exp-amount') : row.querySelector('.cell-inv-amount');
+        
+        //const rawDate = dateCell.innerText.trim();
+        const rawDate = new Date(dateCell.querySelector('input').value.trim()+' 00:00:00');
+        const rawAmt = amountCell.innerText.trim().replace(/[$,]/g, '');
+
+        // 🕒 2. Date Validation (Must look like YYYY-MM-DD and be a calendar date)
+        const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+        const parsedDateCheck = rawDate;
+
+        if (!dateRegex.test(dateFormatter.format(new Date(rawDate))) || isNaN(parsedDateCheck.getTime())) {
+            alert("⚠️ Invalid Date Format!\nPlease enter a valid date using the YYYY-MM-DD format (e.g., 2026-09-06).");
+            // Force focus back onto the broken field and halt the save process
+            dateCell.focus();
+            return; 
+        }
+
+        // 💰 3. Amount Validation (Must be a numeric value)
+        let numericVal = parseFloat(rawAmt);
+        if (isNaN(numericVal)) {
+            alert("⚠️ Invalid Amount Value!\nPlease enter a valid decimal number (e.g., 1250.50). Do not include text.");
+            amountCell.focus();
+            return; 
+        }
+
+        if(listItem){
+            switch(listType){
+                case "expenses":
+                    listItem.date = dateFormatter.format(rawDate);
+                    listItem.category = row.querySelector('select').value;
+                    listItem.vendor = row.querySelector('.cell-exp-vendor').innerText.trim();
+                    listItem.description = row.querySelector('.cell-exp-desc').innerText.trim();
+                    listItem.amount = String(numericVal.toFixed(2));
+                    break;
+                case "invoices":
+                    listItem.date = dateFormatter.format(rawDate);
+                    listItem.client = row.querySelector('.cell-inv-client').innerText.trim();
+                    listItem.clientaddress = row.querySelector('.cell-inv-clientaddress').innerText.trim();
+                    listItem.clientphone = row.querySelector('.cell-inv-clientphone').innerText.trim();
+                    listItem.clientfax = row.querySelector('.cell-inv-clientfax').innerText.trim();
+                    listItem.job = row.querySelector('.cell-inv-job').innerText.trim();
+                    listItem.jobdescription = row.querySelector('.cell-inv-jobdescription').innerText.trim();
+                    listItem.amount = String(numericVal.toFixed(2));
+                    listItem.status = row.querySelector('.status-select').value;
+                    break;
+                default: console.log("What the hell?");
+            }
+
+        }
+        isUnsaved = true;
+        renderTable(listType);
+    }
+}
+    function addNewInvoice() {
+    const nextNum = window.invoices.reduce((max, inv) => {
+        const num = parseInt(inv.id.replace("INV-", ""), 10);
+        return num > max ? num : max;
+    }, 0) + 1;
+    const nextId = "INV-" + String(nextNum).padStart(3, '0');
+    const todayStr = dateFormatter.format(new Date());
+    const newInv = {
+        id: nextId,
+        date: todayStr,
+        client: "New Client Name",
+        clientaddress: "Enter Client Address",
+        clientphone: "000-000-0000",
+        clientfax: "000-000-0000",
+        job: "Job Name",
+        jobdescription: "Enter Job Description",
+        amount: "0.00",
+        status: "pending",
+        createdTimestamp: Date.now()
+    };
+    window.invoices.push(newInv);
+    isUnsaved = true;
+    setFilter('all', 'invoices');
+    toggleEditRow(nextId, 'invoices');
+    }
+    // NEW FUNCTION: Compiles both datasets, wraps them into a single text file stream, and initiates saving
+    async function saveTableToFile() {
+        // 1. Transform both data object arrays directly into structured code syntax strings
+        let dataStr = "var savedinvoices = " + JSON.stringify(window.invoices, null, 4) + ";\n" +
+                    "var savedexpenses = " + JSON.stringify(window.expenses, null, 4) + ";";
+        
+        try {
+            // 2. Open the browser's native "Save As" dialog picker (Corrected lower-case startIn property)
+            const handle = await window.showSaveFilePicker({
+                suggestedName: 'invoice_data.js',
+                startIn: 'downloads', 
+                types: [{
+                    description: 'JS Files',
+                    accept: { 'application/javascript': ['.js'] }
+                }],
+            });
+
+            // 3. Create a writable stream to the chosen file
+            const writable = await handle.createWritable();
+            
+            // 4. Write the double-dataset bundle and close the stream
+            await writable.write(dataStr);
+            await writable.close();
+            
+            // 🎉 SUCCESS: Clear the unsaved flag so the user can navigate away safely
+            isUnsaved = false;
+            console.log("File saved successfully with Invoices and Expenses!");
+            alert("Data successfully saved to file!");
+            
+        } catch (err) {
+            // 5. FALLBACK MECHANISM: If the native picker fails or is unsupported (Firefox, Safari, Mobile Chrome)
+            console.warn("Native file picker failed/unsupported. Falling back to anchor download...", err);
+            
+            try {
+                const blob = new Blob([dataStr], { type: 'application/javascript' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'invoice_data.js';
+                document.body.appendChild(a);
+                
+                a.click(); // Trigger layout click simulation
+                
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                // Clear the dirty flag upon successful fallback down-stream download
+                isUnsaved = false; 
+                alert("Data downloaded successfully!");
+            } catch (fallbackErr) {
+                console.error("Complete save operation failure:", fallbackErr);
+                alert("Failed to save file. Please check browser permissions.");
+            }
+        }
+    }
+
+    // NEW FUNCTION: Reads an uploaded data file stream, maps structural data sets, and targets live rendering sweeps
+    function importTableFromFile(event, bypassValidation = false) {
+        console.log("Importing file..." + (event.target.files[0] ? event.target.files[0].name : ""));
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const rawText = e.target.result;
+                let parsedInvoices = null;
+                let parsedExpenses = null;
+
+                // 1. Check if the incoming file is using the new dual-array variable format
+                if (rawText.includes("var savedexpenses =")) {
+                    console.log("Detecting dual-dataset architecture...");
+                    
+                    // Clean prefixes, extract data content boundaries, and strip trailing semicolons
+                    const invString = rawText.split("var savedexpenses =")[0]
+                                            .replace("var savedinvoices =", "")
+                                            .trim().replace(/;$/, "");
+                    const expString = rawText.split("var savedexpenses =")[1]
+                                            .trim().replace(/;$/, "");
+
+                    parsedInvoices = JSON.parse(invString);
+                    parsedExpenses = JSON.parse(expString);
+                } 
+                // 2. Legacy Fallback: Process older file snapshots containing only invoice records
+                else {
+                    console.log("Detecting legacy single-dataset architecture...");
+                    const singleCleanedString = rawText.replace("var savedinvoices =", "").trim().replace(/;$/, "");
+                    parsedInvoices = JSON.parse(singleCleanedString);
+                    parsedExpenses = []; // Initialize blank array for legacy imports
+                }
+
+                // 3. Structural Validation & Variable State Assignment
+                if (Array.isArray(parsedInvoices) && Array.isArray(parsedExpenses)) {
+                    // Ensure all imported invoices possess a hidden creation timestamp tracker
+                    const standardizedInvoices = parsedInvoices.map(inv => {
+                        if (!inv.createdTimestamp) {
+                            inv.createdTimestamp = inv.date ? new Date(inv.date).getTime() : Date.now();
+                        }
+                        return inv;
+                    });
+
+                    // Securely reset and populate the global window namespaces to maintain referencing anchors
+                    if (!window.invoices) window.invoices = [];
+                    if (!window.expenses) window.expenses = [];
+
+                    window.invoices.length = 0;
+                    window.invoices.push(...standardizedInvoices);
+
+                    window.expenses.length = 0;
+                    window.expenses.push(...parsedExpenses);
+
+                    console.log("Import success! Invoices:", window.invoices, "Expenses:", window.expenses);
+                    console.log("activeTab context:", activeTab);
+                    // Alert the system that the file tracking layout is modified
+                    isUnsaved = true;
+
+                    if (!bypassValidation) {
+                        alert("Dashboard datasets successfully synchronized!");
+                    }
+
+                    // Force live redraw loops depending on which tab view index context is currently focused
+                    if (typeof activeTab !== 'undefined') {
+                        setFilter("all",activeTab);
+                    }
+                } else {
+                    alert("Invalid schema. The chosen file does not map cleanly into database array elements.");
+                }
+            } catch (error) {
+                console.error("Parsing breakdown error detail:", error);
+                alert(error + ": Failed to map data arrays. Ensure chosen file is a valid formatting script.");
+            }
+        };
+        
+        // Execute streaming execution read lifecycle
+        reader.readAsText(file);
+        
+        // Bulletproof fix for fast repetitive changes: wipe out element state instantly on the thread
+        event.target.value = "";
+    }
+
+
+    function checkOverdueStatus() {
+        const today = new Date();
+        const thirtyDaysAgo = new Date();
+        
+        // Set a rolling 30-day lookback anchor window
+        thirtyDaysAgo.setDate(today.getDate() - 30);
+
+        let altered = false;
+
+        window.invoices.forEach(inv => {
+            // Only inspect records currently marked as pending
+            if (inv.status === 'pending' && inv.date) {
+                const invoiceDate = new Date(inv.date);
+
+                // Verify if the invoice date falls past our 30-day horizon window
+                if (!isNaN(invoiceDate.getTime()) && invoiceDate < thirtyDaysAgo) {
+                    inv.status = 'overdue';
+                    altered = true;
+                }
+            }
+        });
+
+        // If any records were automatically updated, alert the system state
+        if (altered) {
+            isUnsaved = true;
+        }
+    }
+        function openInvoiceWindow(index) {
+        const listItem = window.invoices.find(itm => itm.id === index);
+        const rawDate = dateFormatter.format(new Date(listItem.date));
+        const [month, day, year] = rawDate.split('/');
+        const newWindow = window.open("", "_blank", "width=900,height=900");
+        newWindow.document.write(`
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <title>View Invoice - ${listItem.id}</title>
+            <style>
+            input[type="date"] {
+            background-color: white !important;
+            border: none;
+            padding: 5px;
+            font-size: 16px;
+            color: black;
+            -webkit-appearance: none;
+            }
+            body{margin:0;width:auto;}
+            #content {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            width: 8.5in;
+            height: 11in;
+            padding: 0;
+            }
+            input, textarea {
+            border: none;
+            resize: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 14px;
+            }
+            .in th{background:black;color:white;}
+            .header table {
+            text-align:left;
+            float: left;
+            }
+            .in input, .in textarea {
+            padding: 20px 0;
+            }
+            .logo-png {
+            background-image:url(${logoimg});
+            width:150px;
+            height:120px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            vertical-align: middle;
+            }
+            .company-info {
+            font-size: 16px;
+            line-height: 1.4;
+            margin-top: 40px;
+            }
+            h1 { margin: 0; }
+            .billto {
+            float: right;
+            width: 300px;
+            }
+            .invoice-section {
+            margin-top: 25px;
+            font-size: 16px;
+            }
+            .field-label {
+            font-weight: bold;
+            margin-top: 12px;
+            margin-bottom: 4px;
+            }
+            table.in {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            }
+            table.in th, table.in td {
+            border: 1px solid #444;
+            padding: 8px;
+            vertical-align:top;
+            }
+            textarea { height: 60px; }
+            .total {
+            text-align: right;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            }
+            .footer-text {
+            margin-top: 40px;
+            font-size: 14px;
+            text-align: center;
+            }
+            .clear { clear: both; }
+            </style>
+            </head>
+            <body>
+            <div id="content">
+
+                                    <div class="header">
+                                        <table>
+                                            <tr>
+                                                <th>
+                                                <img class="logo-png" src="${logoimg}" alt="Precision Workz, LLC Logo">
+                                                </th>
+                                                <th>
+                                                    <span style="font-size:40px; vertical-align:middle;">
+                                                        Precision<br>Workz, LLC
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="company-info">
+                                                        220 Love Rd.<br>
+                                                        Kosciusko, MS 39090<br>
+                                                        P: 662-770-0172<br>
+                                                        precisionworkzllc2025@gmail.com
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <div class="billto">
+                                            <h1>INVOICE</h1>
+
+                                            <div class="invoice-section">
+                                                <div class="field-label">Invoice #:</div>
+                                                <input id="invoiceNumber" type="text" value="${listItem.id}" readonly>
+
+                                                <div class="field-label">Invoice date:</div>
+                                                <input id="invoicedate" type="date" lang="" data-date-format="MM/DD/YYYY" value="${year}-${month}-${day}" readonly>
+
+                                                <div class="field-label">Bill to:</div>
+                                                <input id="billtoname" type="text" value="${listItem.client}" readonly>
+
+                                                <div class="field-label">Address:</div>
+                                                <textarea id="billtoaddress" readonly>${listItem.clientaddress}</textarea>
+
+                                                <div class="field-label">Phone:</div>
+                                                <input id="billtophone" type="text" value="${listItem.clientphone}" readonly>
+
+                                                <div class="field-label">Fax:</div>
+                                                <input id="billtofax" type="text" value="${listItem.clientfax}" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear"></div>
+                                </div>
+
+                                <table class="in">
+                                    <tr>
+                                        <th>Job</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                    </tr>
+
+                                    <tr>
+                                        <td><input type="text" value="${listItem.job}" readonly></td>
+                                        <td><textarea readonly>${listItem.jobdescription}</textarea></td>
+                                        <td><input type="text" inputmode="decimal" id="lineprice1" class="lineprice" value="${dashboardFormatter.format(listItem.amount)}"></td>
+                                    </tr>
+
+                                </table>
+
+                                <div class="total">
+                                    TOTAL: <span id="totalAmount">0.00</span>
+                                </div>
+
+                                <div class="footer-text">
+                                    Please make all checks payable to Precision Workz, LLC.<br>
+                                    Total due in 30 days. Overdue accounts subject to a service charge of 1.5% per month.
+                                </div>
+
+                            </div>                 
+            <script>
+            const formatter = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+            useGrouping: "always"
+            });
+            function calcTotal(event) {
+            const inputs = document.querySelectorAll(".lineprice");
+            let total = 0;
+            inputs.forEach(input => {
+            const cleanedValue = input.value.replace(/[$,]+/g, '');
+            const value = parseFloat(cleanedValue);
+            if (!isNaN(value)) total += value;
+            });
+            if(event && event.type === 'focusout') {
+            const currentVal = parseFloat(event.target.value.replace(/,/g, ""));
+            if (!isNaN(currentVal)) event.target.value = formatter.format(currentVal);
+            }
+            document.getElementById("totalAmount").innerHTML = formatter.format(total);
+            }
+            document.querySelectorAll(".lineprice").forEach(input => {
+            input.addEventListener("focusout", calcTotal);
+            input.addEventListener("input", calcTotal);
+            });
+            calcTotal();
+            <\/script>
+            <\/body>
+            <\/html>
+
+        `);
+    newWindow.document.close();
+    }
+
+
+    // Tab Switch Controller Engine
+    function switchTab(tabName) {
+        activeTab = tabName;
+        document.querySelectorAll('#tab-invoices, #tab-expenses').forEach(btn => btn.classList.remove('active'));
+        
+        if (tabName === 'invoices') {
+            document.getElementById('tab-invoices').classList.add('active');
+            document.getElementById('invoice-view-container').style.display = 'block';
+            document.getElementById('expense-view-container').style.display = 'none';
+        } else {
+            document.getElementById('tab-expenses').classList.add('active');
+            document.getElementById('invoice-view-container').style.display = 'none';
+            document.getElementById('expense-view-container').style.display = 'block';
+        }
+        setFilter("all", tabName);
+    }
+
+    // Calculate and Update Expense Summary Visual Cards
+    function updateExpenseMetrics(filterType) {
+        let totalExpenses = 0;
+        window.expenses.forEach(exp => {
+            if(exp.category.toLowerCase() === filterType || filterType === "all"){
+                let numericVal = parseFloat(String(exp.amount).replace(/[$,]/g, ""));
+                if (!isNaN(numericVal)) totalExpenses += numericVal;
+            }
+        });
+        document.getElementById('lbl-total-expenses').innerText = dashboardFormatter.format(totalExpenses);
+    }
+
+function renderTable(listType){
+    const list = listType === "expenses" ? window.expenses : window.invoices;
+    const nameType = listType === "expenses" ? "exp" : "inv";
+    if(listType==="invoices") checkOverdueStatus();
+    const tableBody = listType ==="expenses" ? document.getElementById("expense-table-body") : document.getElementById("invoice-table-body");
+    tableBody.innerHTML = "";
+    list.sort((a, b) => new Date(b.date) - new Date(a.date));
+    list.forEach((itm) => {
+        if(listType === "invoices" && currentFilter !== "all" && itm.status.toLowerCase() !== currentFilter) return;
+        if(listType === "expenses" && currentExpenseFilter !== "all" && itm.category.toLowerCase() !== currentExpenseFilter) return;
+        const row = document.createElement("tr");
+        row.id = nameType + "-row-" + itm.id
+        row.setAttribute("data-id", itm.id)
+        let badgeClass;
+        if (listType === "invoices" && itm.status){
+            switch(itm.status) {
+                case "paid":
+                    badgeClass = "badge-paid";
+                    break;
+                case "overdue":
+                    badgeClass = "badge-overdue";
+                    break;
+                default:
+                    badgeClass = "badge-pending";
+            }
+        }
+        const numericVal = parseFloat(String(itm.amount).replace(/[$,]/g, ""));
+        const formattedAmount = isNaN(numericVal) ? "$0.00" : dashboardFormatter.format(numericVal);
+
+        switch(listType){
+            case "expenses" :
+                row.innerHTML = `
+                    <td class="cell-exp-date">${itm.date}</td>
+                    <td class="cell-exp-category">${itm.category}</td>
+                    <td class="cell-exp-vendor">${itm.vendor}</td>
+                    <td class="cell-exp-description">${itm.description}</td>
+                    <td class="cell-exp-amount">${formattedAmount}</td>
+                    <td>
+                        <div class="action-cell">
+                            <button type="button" id="${nameType}-edit-btn-${itm.id}" class="mobile-action-btn edit-action" onclick="toggleEditRow('${itm.id}', '${listType}')">✏️ Edit</button>
+                        </div>
+                    </td>
+                `;
+                break;
+            case "invoices" :
+                row.innerHTML = `
+                    <td class="cell-inv-id">${itm.id}</td>
+                    <td class="cell-inv-date">${itm.date}</td>
+                    <td class="cell-inv-client">${itm.client}</td>
+                    <td class="cell-inv-clientaddress">${itm.clientaddress}</td>
+                    <td class="cell-inv-clientphone">${itm.clientphone}</td>
+                    <td class="cell-inv-clientfax">${itm.clientfax}</td>
+                    <td class="cell-inv-job">${itm.job}</td>
+                    <td class="cell-inv-jobdescription">${itm.jobdescription}</td>
+                    <td class="cell-inv-amount">${formattedAmount}</td>
+                    <td class="cell-inv-status" data-status="${itm.status}"><span class="badge ${badgeClass}">${itm.status}</span></td>
+                    <td>
+                        <div class="action-cell">
+                            <button type="button" id="${nameType}-edit-btn-${itm.id}" class="mobile-action-btn edit-action" onclick="toggleEditRow('${itm.id}', '${listType}')">✏️ Edit</button>
+                        </div>
+                    </td>
+                `;
+                break;
+        }
+//<button type="button" class="mobile-action-btn del-btn" onclick="deleteListItem('${itm.id}', 'invoices')">🗑️</button>
+        const acell = row.querySelector('.action-cell');
+        let buttonHtml = `<button type="button" class="mobile-action-btn del-btn" onclick="deleteListItem('${itm.id}', 'expenses')">🗑️</button>`
+        if(listType === "invoices"){
+            buttonHtml = `<button type="button" class="mobile-action-btn view-action" onclick="openInvoiceWindow('${itm.id}')">👁️ View</button>`
+            acell.innerHTML = buttonHtml + acell.innerHTML;
+        }
+        else acell.innerHTML += buttonHtml;
+        tableBody.appendChild(row);
+    });
+
+    if(listType === "expenses"){
+        // 4. CHECK: Is there an active "New Expense" row currently being edited?
+        // If so, force it to prepend to the very top of the table body
+        const activeEditingRow = document.getElementById("new-expense-editing-row");
+        if (activeEditingRow) {
+            expenseTableBody.prepend(activeEditingRow);
+        }
+
+        updateExpenseMetrics(currentExpenseFilter);
+    }
+    else updateBarGraph();
+}
+    // Function triggered when clicking "➕ Record New Expense"
+    function createNewExpenseRow() {
+        // If an editing row already exists, don't create duplicates
+        if (document.getElementById("new-expense-editing-row")) return;
+
+        const expenseTableBody = document.getElementById("expense-table-body");
+        const editRow = document.createElement("tr");
+        editRow.id = "new-expense-editing-row";
+
+        const rawDate = dateFormatter.format(new Date());
+        const [month, day, year] = rawDate.split('/');
+
+        // Populate with your form fields or inputs
+        editRow.innerHTML = `
+            <td><input type="date" id="input-date" class="cell-exp-date" value="${year}-${month}-${day}"></td>
+            <td><select id="input-category" class="cell-exp-category status-select" placeholder="Category"></select></td>
+            <td><input type="text" id="input-vendor" class="cell-exp-vendor" placeholder="Vendor"></td>
+            <td><input type="text" id="input-desc" class="cell-exp-desc" placeholder="Description"></td>
+            <td><input type="number" id="input-amount" class="cell-exp-amount" placeholder="0.00" step="0.01"></td>
+            <td><button class="mobile-action-btn save-action" onclick="saveNewExpense()">Save</button></td>
+        `;
+
+            const catSelect = editRow.querySelector("select");
+            for(const cat of allCats){
+                catSelect.innerHTML += '<option value="'+cat+'">'+cat+'</option>;';
+            }
+            //catSelect.value = currentCat;
+
+        // Force the edit inputs to stay pinned at the very top of the visual stack
+        expenseTableBody.prepend(editRow);
+    }
+
+    // Function triggered when clicking "Save" on the top row
+    function saveNewExpense() {
+        const dateVal = new Date(`${document.getElementById("input-date").value} 00:00:00`);
+        const catVal = document.getElementById("input-category").value;
+        const venVal = document.getElementById("input-vendor").value;
+        const descVal = document.getElementById("input-desc").value;
+        const amtVal = document.getElementById("input-amount").value;
+
+        // Validate inputs (ensure date and amount are populated)
+        if (!dateVal || !amtVal) return alert("Please fill out Date and Amount.");
+
+        // Push the compiled data object directly into the saved array
+        const newExpense = {
+            id: Date.now().toString(), // Generate a unique ID using JS Date.now()
+            date: dateFormatter.format(new Date(dateVal)),
+            category: catVal,
+            vendor: venVal,
+            description: descVal,
+            amount: amtVal,
+            timestamp: Date.now() // Track precisely when it was submitted
+        };
+        window.expenses.push(newExpense);
+
+        // Re-render table: This automatically sorts the entire list by date 
+        // and cleans up the temporary editing row element
+        renderTable("expenses");
+    }
+
+    // Append a fresh Expense Record Entity
+    function addNewExpense() {
+        const todayStr = dateFormatter.format(new Date());
+        const newExp = {
+            id: Date.now(),
+            createdTimeStamp: Date.now(),
+            date: todayStr,
+            category: "Fuel",
+            vendor: "Vendor Name",
+            description: "Description details",
+            amount: "0.00"
+        };
+        window.expenses.push(newExp);
+        isUnsaved = true;
+        setFilter('all', 'expenses');
+        toggleEditRow(newExp.id, 'expenses');
+    }
+
+    function deleteListItem(index, listType){
+        const list = listType === "expenses" ? window.expenses : window.invoices;
+        if(confirm("Are you sure you want to delete this "+listType+" entry?")){
+            const i = list.findIndex(itm => itm.id === index);
+            if(i != -1) list.splice(i, 1);
+            isUnsaved = true;
+            renderTable(listType);
+        }
+    }
+</script>
+</html>
