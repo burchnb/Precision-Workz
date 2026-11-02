@@ -1,3 +1,4 @@
+<<<<<<< HEAD
     
     // Remove an Expense Entity item
     function deleteExpense(index) {
@@ -208,6 +209,14 @@ function toggleEditRow(index, listType){
             ddSelect.value = currentDropDownChoice;
         }
 
+=======
+
+
+        const expFields = ["date", "category", "vendor", "description", "amount"];
+        const invFields = ["date", "client", "clientaddress", "clientphone", "clientfax", "job", "jobdescription", "amount", "status"];
+        const listItem = listItemType === 'expenses' ? window.expenses.find(itm => itm.id === index) : window.invoices.find(itm => itm.id === index);
+        
+>>>>>>> 0b577e88595ef37eedf7a1000ec42999e73daa40
         const currentDate = dateFormatter.format(new Date(dateCell.innerHTML));
         const [month, day, year] = currentDate.split('/');
         dateCell.innerHTML = '<input type="date" value="'+year+'-'+month+'-'+day+'">';
@@ -217,7 +226,11 @@ function toggleEditRow(index, listType){
         
         // 🎯 NEW: Automatically focus the first editable expense text cell (usually the Date cell)
         if(editableTextCells.length > 0){
+<<<<<<< HEAD
         // If the first cell happens toLowerCase() be the read-only cell-id, skip toLowerCase() the next one
+=======
+        // If the first cell happens to be the read-only cell-id, skip to the next one
+>>>>>>> 0b577e88595ef37eedf7a1000ec42999e73daa40
             const firstEditable = editableTextCells[0].classList.contains('cell-id') ? editableTextCells[1] : editableTextCells[0];
             if(firstEditable) firstEditable.focus();
         }
@@ -252,6 +265,7 @@ function toggleEditRow(index, listType){
         if(listItem){
             switch(listItemType){
                 case "expenses":
+<<<<<<< HEAD
                     listItem.date = dateFormatter.format(rawDate);
                     listItem.category = row.querySelector('select').value;
                     listItem.vendor = row.querySelector('.cell-exp-vendor').innterText.trim();
@@ -268,11 +282,30 @@ function toggleEditRow(index, listType){
                     listItem.jobdescription = row.querySelector('.cell-jobdescription').innerText.trim();
                     listItem.amount = String(numericVal.toFixed(2));
                     listItem.status = row.querySelector('.status-select').value;
+=======
+                    .date = dateFormatter.format(rawDate);
+                    .category = row.querySelector('select').value;
+                    .vendor = row.querySelector('.cell-exp-vendor').innterText.trim();
+                    .description = row.querySelector('.cell-exp-desc').innerText.trim();
+                    .amount = String(numericVal.toFixed(2));
+                    break;
+                case "invoices":
+                    .date = dateFormatter.format(rawDate);
+                    .client = row.querySelector('.cell-client').innerText.trim();
+                    .clientaddress = row.querySelector('.cell-clientaddress').innerText.trim();
+                    .clientphone = row.querySelector('cell-clientphone').innerText.trim();
+                    .clientfax = row.querySelector('.cell-clientfax').innerText.trim();
+                    .job = row.querySelector('.cell-job').innerText.trim();
+                    .jobdescription = row.querySelector('.cell-jobdescription').innerText.trim();
+                    .amount = String(numericVal.toFixed(2));
+                    .status = row.querySelector('.status-select').value;
+>>>>>>> 0b577e88595ef37eedf7a1000ec42999e73daa40
                     break;
 
             }
 
         }
+<<<<<<< HEAD
         isUnsaved = true;
         renderTable();
     }
@@ -577,3 +610,11 @@ function toggleEditRow(index, listType){
         });
         updateBarGraph();
     }
+=======
+
+
+        isUnsaved = true;
+        renderTable();
+    }
+}
+>>>>>>> 0b577e88595ef37eedf7a1000ec42999e73daa40
