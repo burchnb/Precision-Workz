@@ -431,10 +431,10 @@
 
             <!-- Invoices Data Table -->
             <table>
-                <thead>
-                    <tr id="invoices-table-header">
+                <thead id="invoices-table-header" data-sort-order="desc" data-sort-column="date">
+                    <tr>
                         <th id="header-inv-id">ID <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('id')"></th>
-                        <th id="header-inv-date">Date <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('date')"></th>
+                        <th id="header-inv-date" class="sort-active">Date <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('date')"></th>
                         <th id="header-inv-client">Client <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('client')"></th>
                         <th id="header-inv-clientaddress">Address <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('clientaddress')"></th>
                         <th id="header-inv-clientphone">Phone <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('clientphone')"></th>
@@ -446,7 +446,7 @@
                         <th id="header-inv-action">Action</th>
                     </tr>
                 </thead>
-                <tbody id="invoices-table-body"></tbody>
+                <tbody id="invoices-table-body" data-sort-order="desc"></tbody>
             </table>
         </div>
 
@@ -478,9 +478,9 @@
             </div>
 
             <table>
-                <thead>
-                    <tr id="expenses-table-header">
-                        <th id="header-exp-date">Date <img src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" class="sort-icon" onclick="sortTable('date')"> </th>
+                <thead id="expenses-table-header" data-sort-order="desc" data-sort-column="date">
+                    <tr>
+                        <th id="header-exp-date" class="sort-active">Date <img src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" class="sort-icon" onclick="sortTable('date')"> </th>
                         <th id="header-exp-category">Category <img src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" class="sort-icon" onclick="sortTable('category')"> </th>
                         <th id="header-exp-vendor">Vendor/Item <img src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" class="sort-icon" onclick="sortTable('vendor')"> </th>
                         <th id="header-exp-description">Description <img src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" class="sort-icon" onclick="sortTable('description')"> </th>
@@ -540,22 +540,23 @@
     });
     function sortTable(columnName) {
         const nameType = activeTab === "expenses" ? "exp" : "inv";
-        const tableHeader = document.getElementById(activeTab + "-table-header");
+        const tableHead = document.getElementById(activeTab + "-table-header");
         const tableBody = document.getElementById(activeTab + "-table-body");
         const rowsArray = Array.from(tableBody.rows);
-        const currentSortType = tableHeader.dataset.sortColumn;
+        const currentSortType = tableHead.dataset.sortColumn;
+        let currentSortOrder = tableHead.dataset.sortOrder || "asc";
         if (currentSortType === columnName) {
             // If the same column is clicked again, toggle the sort order
-            tableHeader.dataset.sortOrder = tableBody.dataset.sortOrder === "asc" ? "desc" : "asc";
-            tableHeader.querySelector(`#header-${nameType}-${columnName}`).classList.add("sort-active");
+            tableHead.dataset.sortOrder = tableBody.dataset.sortOrder === "asc" ? "desc" : "asc";
+            tableHead.querySelector(`#header-${nameType}-${columnName}`).classList.add("sort-active");
         } else {
-            tableHeader.querySelectorAll(".sort-active").forEach(el => el.classList.remove("sort-active"));
+            tableHead.querySelectorAll(".sort-active").forEach(el => el.classList.remove("sort-active"));
             // If a new column is clicked, set it as the current sort column and default to ascending order
-            tableHeader.dataset.sortColumn = columnName;
-            tableHeader.dataset.sortOrder = "asc";
-            tableHeader.querySelector(`#header-${nameType}-${columnName}`).classList.add("sort-active");
+            tableHead.dataset.sortColumn = columnName;
+            tableHead.dataset.sortOrder = "asc";
+            tableHead.querySelector(`#header-${nameType}-${columnName}`).classList.add("sort-active");
         }
-        const currentSortOrder = tableBody.dataset.sortOrder || "asc";
+        currentSortOrder = tableBody.dataset.sortOrder || "asc";
         const newSortOrder = currentSortOrder === "asc" ? "desc" : "asc";
         
         rowsArray.sort((a, b) => {
@@ -768,7 +769,7 @@
                     listItem.date = dateFormatter.format(rawDate);
                     listItem.category = row.querySelector('select').value;
                     listItem.vendor = row.querySelector('.cell-exp-vendor').innerText.trim();
-                    listItem.description = row.querySelector('.cell-exp-desc').innerText.trim();
+                    listItem.description = row.querySelector('.cell-exp-description').innerText.trim();
                     listItem.amount = String(numericVal.toFixed(2));
                     break;
                 case "invoices":
@@ -1299,7 +1300,7 @@ function renderTable(filteredList = null) {
         tableBody.appendChild(row);
     });
 
-    sortTable("date");
+//    sortTable("date");
 
     if(activeTab === "expenses"){
         // 4. CHECK: Is there an active "New Expense" row currently being edited?
