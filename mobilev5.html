@@ -380,7 +380,7 @@
         </div>
 
         <!-- INVOICE SECTION (Wrapped in a conditional container) -->
-        <div id="invoice-view-container">
+        <div id="invoices-view-container">
             <!-- 3-Bar Chart Segment -->
             <div class="metrics-card-wrapper">
                 <div class="graph-bars-area">
@@ -446,14 +446,14 @@
                         <th id="header-inv-action">Action</th>
                     </tr>
                 </thead>
-                <tbody id="invoices-table-body" data-sort-order="desc"></tbody>
+                <tbody id="invoices-table-body" data-sort-order="desc"><tr><td>No invoices found</td></tr></tbody>
             </table>
         </div>
 
         <!-- ==========================================
              🚀 NEW: EXPENSE SECTION CONTAINER
              ========================================== -->
-        <div id="expense-view-container" style="display: none;">
+        <div id="expenses-view-container" style="display: none;">
             <div class="metrics-card-wrapper" style="background: #fff5f5;">
                 <div class="metrics-summary-row">
                     <div>
@@ -488,7 +488,7 @@
                         <th id="header-exp-action">Action</th>
                     </tr>
                 </thead>
-                <tbody id="expenses-table-body"></tbody>
+                <tbody id="expenses-table-body" data-sort-order="desc"><tr><td>No expenses found</td></tr></tbody>
             </table>
         </div>
     </div>
@@ -1200,12 +1200,12 @@
         
         if (tabName === 'invoices') {
             document.getElementById('tab-invoices').classList.add('active');
-            document.getElementById('invoice-view-container').style.display = 'block';
-            document.getElementById('expense-view-container').style.display = 'none';
+            document.getElementById('invoices-view-container').style.display = 'block';
+            document.getElementById('expenses-view-container').style.display = 'none';
         } else {
             document.getElementById('tab-expenses').classList.add('active');
-            document.getElementById('invoice-view-container').style.display = 'none';
-            document.getElementById('expense-view-container').style.display = 'block';
+            document.getElementById('invoices-view-container').style.display = 'none';
+            document.getElementById('expenses-view-container').style.display = 'block';
         }
         setFilter("all");
     }
