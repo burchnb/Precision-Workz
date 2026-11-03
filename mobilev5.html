@@ -141,12 +141,10 @@
         
         /* Filter Controls Styling */
         .filter-group {
-            display: flex;
             gap: 5px;
             background-color: #eee;
             padding: 4px;
             border-radius: 6px;
-            flex-wrap: wrap;
         }
         .filter-btn, .main-filter-btn {
             background: none;
@@ -217,6 +215,11 @@
             vertical-align: middle;
             margin-right: 5px;
             color:white;
+            cursor:pointer;
+        }
+        .sort-active {
+            background-color: #76aae2;
+            color: #000;
         }
         /* Badges */
         .badge {
@@ -412,14 +415,14 @@
                 <h2>Invoice List</h2>
                 <div class="search-container">
                     <img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png" alt="Search Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                    <input type="text" id="invoice-search" placeholder="Search Invoices..." oninput="filterList('invoices')" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc; width: 200px;">
+                    <input type="text" id="invoice-search" placeholder="Search Invoices..." oninput="filterList()" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc; width: 200px;">
                 </div>
                 <div class="inv-filter-group filter-group">
                     <img src="https://img.icons8.com/ios-glyphs/30/000000/filter--v1.png" alt="Filter Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                    <button class="filter-btn active" id="inv-filter-all" onclick="setFilter('all', 'invoices')">All</button>
-                    <button class="filter-btn" id="inv-filter-paid" onclick="setFilter('paid', 'invoices')">Paid</button>
-                    <button class="filter-btn" id="inv-filter-pending" onclick="setFilter('pending', 'invoices')">Pending</button>
-                    <button class="filter-btn" id="inv-filter-overdue" onclick="setFilter('overdue', 'invoices')">Overdue</button>
+                    <button class="filter-btn active" id="inv-filter-all" onclick="setFilter('all')">All</button>
+                    <button class="filter-btn" id="inv-filter-paid" onclick="setFilter('paid')">Paid</button>
+                    <button class="filter-btn" id="inv-filter-pending" onclick="setFilter('pending')">Pending</button>
+                    <button class="filter-btn" id="inv-filter-overdue" onclick="setFilter('overdue')">Overdue</button>
                 </div>
                 <div class="btn-group">
                     <button class="add-btn" title="Add New Invoice" onclick="addNewInvoice()">➕</button>
@@ -429,21 +432,21 @@
             <!-- Invoices Data Table -->
             <table>
                 <thead>
-                    <tr>
-                        <th>ID <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(1)"></th>
-                        <th>Date <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(2)"></th>
-                        <th>Client <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(3)"></th>
-                        <th>Address <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(4)"></th>
-                        <th>Phone <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(5)"></th>
-                        <th>Fax <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(6)"></th>
-                        <th>Job <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(7)"></th>
-                        <th>Description <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(8)"></th>
-                        <th>Amount <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(9)"></th>
-                        <th>Status</th>
-                        <th>Action</th>
+                    <tr id="invoices-table-header">
+                        <th id="header-inv-id">ID <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('id')"></th>
+                        <th id="header-inv-date">Date <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('date')"></th>
+                        <th id="header-inv-client">Client <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('client')"></th>
+                        <th id="header-inv-clientaddress">Address <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('clientaddress')"></th>
+                        <th id="header-inv-clientphone">Phone <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('clientphone')"></th>
+                        <th id="header-inv-clientfax">Fax <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('clientfax')"></th>
+                        <th id="header-inv-job">Job <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('job')"></th>
+                        <th id="header-inv-jobdescription">Description <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('jobdescription')"></th>
+                        <th id="header-inv-amount">Amount <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable('amount')"></th>
+                        <th id="header-inv-status">Status</th>
+                        <th id="header-inv-action">Action</th>
                     </tr>
                 </thead>
-                <tbody id="invoice-table-body"></tbody>
+                <tbody id="invoices-table-body"></tbody>
             </table>
         </div>
 
@@ -464,9 +467,9 @@
                 <h2>Expense Log</h2>
                 <div class="search-container">
                     <img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png" alt="Search Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                    <input type="text" id="expense-search" placeholder="Search Expenses..." oninput="filterList('expenses')" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc; width: 200px;">
+                    <input type="text" id="expense-search" placeholder="Search Expenses..." oninput="filterList()" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc; width: 200px;">
                 </div>
-                <div id="expenseCategory" class="exp-filter-group">
+                <div id="expenseCategory" class="exp-filter-group filter-group">
                     <img src="https://img.icons8.com/ios-glyphs/30/000000/filter--v1.png" alt="Filter Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                 </div>
                 <div class="btn-group">
@@ -476,11 +479,16 @@
 
             <table>
                 <thead>
-                    <tr>
-                        <th>Date</th><th>Category</th><th>Vendor/Item</th><th>Description</th><th>Amount</th><th>Action</th>
+                    <tr id="expenses-table-header">
+                        <th id="header-exp-date">Date <img src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" class="sort-icon" onclick="sortTable('date')"> </th>
+                        <th id="header-exp-category">Category <img src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" class="sort-icon" onclick="sortTable('category')"> </th>
+                        <th id="header-exp-vendor">Vendor/Item <img src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" class="sort-icon" onclick="sortTable('vendor')"> </th>
+                        <th id="header-exp-description">Description <img src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" class="sort-icon" onclick="sortTable('description')"> </th>
+                        <th id="header-exp-amount">Amount <img src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" class="sort-icon" onclick="sortTable('amount')"> </th>
+                        <th id="header-exp-action">Action</th>
                     </tr>
                 </thead>
-                <tbody id="expense-table-body"></tbody>
+                <tbody id="expenses-table-body"></tbody>
             </table>
         </div>
     </div>
@@ -526,32 +534,38 @@
     // Native browser event listener to block accidental tab closures
     window.addEventListener("beforeunload", (event) => {
         if (isUnsaved) {
-            // Modern standard requires setting a return value or preventing default
             event.preventDefault();
-            
-            // Note: Modern browsers (Chrome, Android, iOS) show a generic security message 
-            // like "Changes you made may not be saved" and ignore custom text strings.
             event.returnValue = true; 
         }
     });
-    function sortTable(columnIndex) {
-        const listType = activeTab === "invoices" ? "invoices" : "expenses";
-        const tableBody = document.getElementById(listType + "-table-body");
+    function sortTable(columnName) {
+        const nameType = activeTab === "expenses" ? "exp" : "inv";
+        const tableHeader = document.getElementById(activeTab + "-table-header");
+        const tableBody = document.getElementById(activeTab + "-table-body");
         const rowsArray = Array.from(tableBody.rows);
-        const isNumericColumn = columnIndex === 1 || columnIndex === 9; // Date or Amount columns
-        const isDateColumn = columnIndex === 1; // Date column
-        const isAmountColumn = columnIndex === 9; // Amount column
+        const currentSortType = tableHeader.dataset.sortColumn;
+        if (currentSortType === columnName) {
+            // If the same column is clicked again, toggle the sort order
+            tableHeader.dataset.sortOrder = tableBody.dataset.sortOrder === "asc" ? "desc" : "asc";
+            tableHeader.querySelector(`#header-${nameType}-${columnName}`).classList.add("sort-active");
+        } else {
+            tableHeader.querySelectorAll(".sort-active").forEach(el => el.classList.remove("sort-active"));
+            // If a new column is clicked, set it as the current sort column and default to ascending order
+            tableHeader.dataset.sortColumn = columnName;
+            tableHeader.dataset.sortOrder = "asc";
+            tableHeader.querySelector(`#header-${nameType}-${columnName}`).classList.add("sort-active");
+        }
         const currentSortOrder = tableBody.dataset.sortOrder || "asc";
         const newSortOrder = currentSortOrder === "asc" ? "desc" : "asc";
         
         rowsArray.sort((a, b) => {
-            let aValue = a.cells[columnIndex].innerText.trim();
-            let bValue = b.cells[columnIndex].innerText.trim();
+            let aValue = a.querySelector(`.cell-${nameType}-${columnName}`).innerText.trim();
+            let bValue = b.querySelector(`.cell-${nameType}-${columnName}`).innerText.trim();
             
-            if (isDateColumn) {
+            if (columnName === "date") {
                 aValue = new Date(aValue);
                 bValue = new Date(bValue);
-            } else if (isAmountColumn) {
+            } else if (columnName === "amount") {
                 aValue = parseFloat(aValue.replace(/[$,]/g, '')) || 0;
                 bValue = parseFloat(bValue.replace(/[$,]/g, '')) || 0;
             } else {
@@ -559,8 +573,12 @@
                 bValue = bValue.toLowerCase();
             }
             
-            if (aValue < bValue) return newSortOrder === "asc" ? -1 : 1;
-            if (aValue > bValue) return newSortOrder === "asc" ? 1 : -1;
+            if (aValue < bValue){
+                return newSortOrder === "asc" ? -1 : 1;
+            }
+            if (aValue > bValue) {
+                return newSortOrder === "asc" ? 1 : -1;
+            }
             return 0;
         });
         
@@ -570,20 +588,20 @@
         // Update the sort order data attribute
         tableBody.dataset.sortOrder = newSortOrder;
     }
-    function filterList(listType) {
-        const searchTerm = document.getElementById(listType === "expenses" ? "expense-search" : "invoice-search").value.toLowerCase();
-        const filteredList = window[listType].filter(item => {
+    function filterList() {
+        const searchTerm = document.getElementById(activeTab === "expenses" ? "expense-search" : "invoice-search").value.toLowerCase();
+        const filteredList = window[activeTab].filter(item => {
             return Object.values(item).some(val => String(val).toLowerCase().includes(searchTerm));
         });
-        renderTable(listType, filteredList);
+        renderTable(filteredList);
     }
-    function setFilter(filterName, listType){
-        const nameType = listType === "expenses" ? "exp" : "inv";
-        if(listType === "expenses") currentExpenseFilter = filterName.toLowerCase();
+    function setFilter(filterName){
+        const nameType = activeTab === "expenses" ? "exp" : "inv";
+        if(activeTab === "expenses") currentExpenseFilter = filterName.toLowerCase();
         else currentFilter = filterName.toLowerCase();
         document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
         document.getElementById(nameType + "-filter-" + filterName.toLowerCase()).classList.add("active");
-        renderTable(listType);
+        renderTable();
     }
     function updateBarGraph() {
         let totalPaid = 0;
@@ -614,9 +632,9 @@
         document.getElementById('chart-bar-pending').style.height = pendingPercent + '%';
         document.getElementById('chart-bar-overdue').style.height = overduePercent + '%';
     }
-    function toggleEditRow(index, listType){
+    function toggleEditRow(index){
     console.log('toggleEditRow');
-    const nameType = listType === "expenses" ? "exp" : "inv";
+    const nameType = activeTab === "expenses" ? "exp" : "inv";
     const row = document.getElementById(nameType + "-row-" + index);
     const button = document.getElementById(nameType + "-edit-btn-" + index);
     let editableTextCells = row.querySelectorAll('td:not(:last-child):not(.cell-inv-status):not(.cell-inv-date)');
@@ -626,7 +644,7 @@
     const dropDownCell = nameType === "exp" ? row.querySelector('.cell-exp-category') : row.querySelector('.cell-inv-status');
    // const expFields = ["date", "category", "vendor", "description", "amount"];
    // const invFields = ["date", "client", "clientaddress", "clientphone", "clientfax", "job", "jobdescription", "amount", "status"];
-    let listItem = listType === 'expenses' ? window.expenses.find(itm => itm.id === index) : window.invoices.find(itm => itm.id === index);
+    let listItem = activeTab === 'expenses' ? window.expenses.find(itm => itm.id === index) : window.invoices.find(itm => itm.id === index);
 
     if(!isEditing){
         
@@ -719,7 +737,7 @@
     }else{
 
         // 🔍 1. Extract Elements for Real-Time Validation
-        const amountCell = listType === 'expenses' ? row.querySelector('.cell-exp-amount') : row.querySelector('.cell-inv-amount');
+        const amountCell = activeTab === 'expenses' ? row.querySelector('.cell-exp-amount') : row.querySelector('.cell-inv-amount');
         
         //const rawDate = dateCell.innerText.trim();
         const rawDate = new Date(dateCell.querySelector('input').value.trim()+' 00:00:00');
@@ -745,7 +763,7 @@
         }
 
         if(listItem){
-            switch(listType){
+            switch(activeTab){
                 case "expenses":
                     listItem.date = dateFormatter.format(rawDate);
                     listItem.category = row.querySelector('select').value;
@@ -769,7 +787,7 @@
 
         }
         isUnsaved = true;
-        renderTable(listType);
+        renderTable();
     }
 }
     function addNewInvoice() {
@@ -794,8 +812,8 @@
     };
     window.invoices.push(newInv);
     isUnsaved = true;
-    setFilter('all', 'invoices');
-    toggleEditRow(nextId, 'invoices');
+    setFilter('all');
+    toggleEditRow(nextId);
     }
     // NEW FUNCTION: Compiles both datasets, wraps them into a single text file stream, and initiates saving
     async function saveTableToFile() {
@@ -919,7 +937,7 @@
 
                     // Force live redraw loops depending on which tab view index context is currently focused
                     if (typeof activeTab !== 'undefined') {
-                        setFilter("all",activeTab);
+                        setFilter("all");
                     }
                 } else {
                     alert("Invalid schema. The chosen file does not map cleanly into database array elements.");
@@ -1188,7 +1206,7 @@
             document.getElementById('invoice-view-container').style.display = 'none';
             document.getElementById('expense-view-container').style.display = 'block';
         }
-        setFilter("all", tabName);
+        setFilter("all");
     }
 
     // Calculate and Update Expense Summary Visual Cards
@@ -1205,21 +1223,21 @@
         document.getElementById('lbl-expenses-title').innerText = `Total ${filterType.charAt(0).toUpperCase() + filterType.slice(1)}`;
     }
 
-function renderTable(listType, filteredList = null) {
-    const list = filteredList || (listType === "expenses" ? window.expenses : window.invoices);
-    const nameType = listType === "expenses" ? "exp" : "inv";
-    if(listType==="invoices") checkOverdueStatus();
-    const tableBody = listType ==="expenses" ? document.getElementById("expense-table-body") : document.getElementById("invoice-table-body");
+function renderTable(filteredList = null) {
+    const list = filteredList || (activeTab === "expenses" ? window.expenses : window.invoices);
+    const nameType = activeTab === "expenses" ? "exp" : "inv";
+    if(activeTab==="invoices") checkOverdueStatus();
+    const tableBody = activeTab ==="expenses" ? document.getElementById("expenses-table-body") : document.getElementById("invoices-table-body");
     tableBody.innerHTML = "";
     list.sort((a, b) => new Date(b.date) - new Date(a.date));
     list.forEach((itm) => {
-        if(listType === "invoices" && currentFilter !== "all" && itm.status.toLowerCase() !== currentFilter) return;
-        if(listType === "expenses" && currentExpenseFilter !== "all" && itm.category.toLowerCase() !== currentExpenseFilter) return;
+        if(activeTab === "invoices" && currentFilter !== "all" && itm.status.toLowerCase() !== currentFilter) return;
+        if(activeTab === "expenses" && currentExpenseFilter !== "all" && itm.category.toLowerCase() !== currentExpenseFilter) return;
         const row = document.createElement("tr");
         row.id = nameType + "-row-" + itm.id
         row.setAttribute("data-id", itm.id)
         let badgeClass;
-        if (listType === "invoices" && itm.status){
+        if (activeTab === "invoices" && itm.status){
             switch(itm.status) {
                 case "paid":
                     badgeClass = "badge-paid";
@@ -1234,7 +1252,7 @@ function renderTable(listType, filteredList = null) {
         const numericVal = parseFloat(String(itm.amount).replace(/[$,]/g, ""));
         const formattedAmount = isNaN(numericVal) ? "$0.00" : dashboardFormatter.format(numericVal);
 
-        switch(listType){
+        switch(activeTab){
             case "expenses" :
                 row.innerHTML = `
                     <td class="cell-exp-date">${itm.date}</td>
@@ -1244,7 +1262,7 @@ function renderTable(listType, filteredList = null) {
                     <td class="cell-exp-amount">${formattedAmount}</td>
                     <td>
                         <div class="action-cell">
-                            <button type="button" id="${nameType}-edit-btn-${itm.id}" class="mobile-action-btn edit-action" title="Edit" onclick="toggleEditRow('${itm.id}', '${listType}')">✏️</button>
+                            <button type="button" id="${nameType}-edit-btn-${itm.id}" class="mobile-action-btn edit-action" title="Edit" onclick="toggleEditRow('${itm.id}')">✏️</button>
                         </div>
                     </td>
                 `;
@@ -1263,17 +1281,17 @@ function renderTable(listType, filteredList = null) {
                     <td class="cell-inv-status" data-status="${itm.status}"><span class="badge ${badgeClass}">${itm.status}</span></td>
                     <td>
                         <div class="action-cell">
-                            <button type="button" id="${nameType}-edit-btn-${itm.id}" class="mobile-action-btn edit-action" title="Edit" onclick="toggleEditRow('${itm.id}', '${listType}')">✏️</button>
+                            <button type="button" id="${nameType}-edit-btn-${itm.id}" class="mobile-action-btn edit-action" title="Edit" onclick="toggleEditRow('${itm.id}')">✏️</button>
                         </div>
                     </td>
                 `;
                 break;
         }
-//<button type="button" class="mobile-action-btn del-btn" onclick="deleteListItem('${itm.id}', 'invoices')">🗑️</button>
+
         const acell = row.querySelector('.action-cell');
-        let buttonHtml = `<button type="button" class="mobile-action-btn del-btn" title="Delete" onclick="deleteListItem('${itm.id}', '${listType}')">🗑️</button>`
+        let buttonHtml = `<button type="button" class="mobile-action-btn del-btn" title="Delete" onclick="deleteListItem('${itm.id}')">🗑️</button>`
         acell.innerHTML += buttonHtml;
-        if(listType === "invoices"){
+        if(activeTab === "invoices"){
             buttonHtml = `<button type="button" class="mobile-action-btn view-action" title="View Invoice" onclick="openInvoiceWindow('${itm.id}')">👁️</button>`
             acell.innerHTML = buttonHtml + acell.innerHTML;
         }
@@ -1281,7 +1299,9 @@ function renderTable(listType, filteredList = null) {
         tableBody.appendChild(row);
     });
 
-    if(listType === "expenses"){
+    sortTable("date");
+
+    if(activeTab === "expenses"){
         // 4. CHECK: Is there an active "New Expense" row currently being edited?
         // If so, force it to prepend to the very top of the table body
         const activeEditingRow = document.getElementById("new-expense-editing-row");
@@ -1298,7 +1318,7 @@ function renderTable(listType, filteredList = null) {
         // If an editing row already exists, don't create duplicates
         if (document.getElementById("new-expense-editing-row")) return;
 
-        const expenseTableBody = document.getElementById("expense-table-body");
+        const expenseTableBody = document.getElementById("expenses-table-body");
         const editRow = document.createElement("tr");
         editRow.id = "new-expense-editing-row";
 
@@ -1319,7 +1339,6 @@ function renderTable(listType, filteredList = null) {
             for(const cat of allCats){
                 catSelect.innerHTML += '<option value="'+cat+'">'+cat+'</option>;';
             }
-            //catSelect.value = currentCat;
 
         // Force the edit inputs to stay pinned at the very top of the visual stack
         expenseTableBody.prepend(editRow);
@@ -1350,7 +1369,7 @@ function renderTable(listType, filteredList = null) {
 
         // Re-render table: This automatically sorts the entire list by date 
         // and cleans up the temporary editing row element
-        renderTable("expenses");
+        renderTable();
     }
 
     // Append a fresh Expense Record Entity
@@ -1367,17 +1386,17 @@ function renderTable(listType, filteredList = null) {
         };
         window.expenses.push(newExp);
         isUnsaved = true;
-        setFilter('all', 'expenses');
-        toggleEditRow(newExp.id, 'expenses');
+        setFilter('all');
+        toggleEditRow(newExp.id);
     }
 
-    function deleteListItem(index, listType){
-        const list = listType === "expenses" ? window.expenses : window.invoices;
-        if(confirm("Are you sure you want to delete this "+listType+" entry?")){
+    function deleteListItem(index){
+            const list = activeTab === "expenses" ? window.expenses : window.invoices;
+        if(confirm("Are you sure you want to delete this "+activeTab+" entry?")){
             const i = list.findIndex(itm => itm.id === index);
             if(i != -1) list.splice(i, 1);
             isUnsaved = true;
-            renderTable(listType);
+            renderTable();
         }
     }
 </script>
