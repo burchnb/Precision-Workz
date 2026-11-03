@@ -211,7 +211,13 @@
             background-color: #007BFF;
             color: white;
         }
-        
+        .sort-icon {
+            width: 15px;
+            height: 15px;
+            vertical-align: middle;
+            margin-right: 5px;
+            color:white;
+        }
         /* Badges */
         .badge {
             display: inline-block;
@@ -404,7 +410,12 @@
             <!-- Invoice Controls Header Row -->
             <div class="table-header-row">
                 <h2>Invoice List</h2>
+                <div class="search-container">
+                    <img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png" alt="Search Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                    <input type="text" id="invoice-search" placeholder="Search Invoices..." oninput="filterList('invoices')" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc; width: 200px;">
+                </div>
                 <div class="inv-filter-group filter-group">
+                    <img src="https://img.icons8.com/ios-glyphs/30/000000/filter--v1.png" alt="Filter Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                     <button class="filter-btn active" id="inv-filter-all" onclick="setFilter('all', 'invoices')">All</button>
                     <button class="filter-btn" id="inv-filter-paid" onclick="setFilter('paid', 'invoices')">Paid</button>
                     <button class="filter-btn" id="inv-filter-pending" onclick="setFilter('pending', 'invoices')">Pending</button>
@@ -419,7 +430,17 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th><th>Date</th><th>Client</th><th>Address</th><th>Phone</th><th>Fax</th><th>Job</th><th>Description</th><th>Amount</th><th>Status</th><th>Action</th>
+                        <th>ID <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(1)"></th>
+                        <th>Date <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(2)"></th>
+                        <th>Client <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(3)"></th>
+                        <th>Address <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(4)"></th>
+                        <th>Phone <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(5)"></th>
+                        <th>Fax <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(6)"></th>
+                        <th>Job <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(7)"></th>
+                        <th>Description <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(8)"></th>
+                        <th>Amount <img class="sort-icon" src="https://img.icons8.com/ios-glyphs/30/000000/sort--v1.png" alt="Sort Icon" onclick="sortTable(9)"></th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="invoice-table-body"></tbody>
@@ -441,7 +462,12 @@
 
             <div class="table-header-row">
                 <h2>Expense Log</h2>
+                <div class="search-container">
+                    <img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png" alt="Search Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                    <input type="text" id="expense-search" placeholder="Search Expenses..." oninput="filterList('expenses')" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc; width: 200px;">
+                </div>
                 <div id="expenseCategory" class="exp-filter-group">
+                    <img src="https://img.icons8.com/ios-glyphs/30/000000/filter--v1.png" alt="Filter Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                 </div>
                 <div class="btn-group">
                     <button class="add-btn" style="background-color: #dc3545;" title="Create New Expense" onclick="createNewExpenseRow()">➕</button>
@@ -508,6 +534,49 @@
             event.returnValue = true; 
         }
     });
+    function sortTable(columnIndex) {
+        const listType = activeTab === "invoices" ? "invoices" : "expenses";
+        const tableBody = document.getElementById(listType + "-table-body");
+        const rowsArray = Array.from(tableBody.rows);
+        const isNumericColumn = columnIndex === 1 || columnIndex === 9; // Date or Amount columns
+        const isDateColumn = columnIndex === 1; // Date column
+        const isAmountColumn = columnIndex === 9; // Amount column
+        const currentSortOrder = tableBody.dataset.sortOrder || "asc";
+        const newSortOrder = currentSortOrder === "asc" ? "desc" : "asc";
+        
+        rowsArray.sort((a, b) => {
+            let aValue = a.cells[columnIndex].innerText.trim();
+            let bValue = b.cells[columnIndex].innerText.trim();
+            
+            if (isDateColumn) {
+                aValue = new Date(aValue);
+                bValue = new Date(bValue);
+            } else if (isAmountColumn) {
+                aValue = parseFloat(aValue.replace(/[$,]/g, '')) || 0;
+                bValue = parseFloat(bValue.replace(/[$,]/g, '')) || 0;
+            } else {
+                aValue = aValue.toLowerCase();
+                bValue = bValue.toLowerCase();
+            }
+            
+            if (aValue < bValue) return newSortOrder === "asc" ? -1 : 1;
+            if (aValue > bValue) return newSortOrder === "asc" ? 1 : -1;
+            return 0;
+        });
+        
+        // Re-append sorted rows to the table body
+        rowsArray.forEach(row => tableBody.appendChild(row));
+        
+        // Update the sort order data attribute
+        tableBody.dataset.sortOrder = newSortOrder;
+    }
+    function filterList(listType) {
+        const searchTerm = document.getElementById(listType === "expenses" ? "expense-search" : "invoice-search").value.toLowerCase();
+        const filteredList = window[listType].filter(item => {
+            return Object.values(item).some(val => String(val).toLowerCase().includes(searchTerm));
+        });
+        renderTable(listType, filteredList);
+    }
     function setFilter(filterName, listType){
         const nameType = listType === "expenses" ? "exp" : "inv";
         if(listType === "expenses") currentExpenseFilter = filterName.toLowerCase();
@@ -1136,8 +1205,8 @@
         document.getElementById('lbl-expenses-title').innerText = `Total ${filterType.charAt(0).toUpperCase() + filterType.slice(1)}`;
     }
 
-function renderTable(listType){
-    const list = listType === "expenses" ? window.expenses : window.invoices;
+function renderTable(listType, filteredList = null) {
+    const list = filteredList || (listType === "expenses" ? window.expenses : window.invoices);
     const nameType = listType === "expenses" ? "exp" : "inv";
     if(listType==="invoices") checkOverdueStatus();
     const tableBody = listType ==="expenses" ? document.getElementById("expense-table-body") : document.getElementById("invoice-table-body");
