@@ -1,0 +1,81 @@
+           input[type="date"] {
+            background-color: white !important;
+            border: none;
+            padding: 5px;
+            font-size: 16px;
+            color: black;
+            -webkit-appearance: none;
+            }
+            body{margin:0;width:auto;}
+            #content {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            width: 8.5in;
+            height: 11in;
+            padding: 0;
+            }
+            input, textarea {
+            border: none;
+            resize: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 14px;
+            }
+            .in th{background:black;color:white;}
+            .header table {
+            text-align:left;
+            float: left;
+            }
+            .in input, .in textarea {
+            padding: 20px 0;
+            }
+            .logo-png {
+            background-image:url(${configuration.logoimg});
+            width:150px;
+            height:120px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            vertical-align: middle;
+            }
+            .company-info {
+            font-size: 16px;
+            line-height: 1.4;
+            margin-top: 40px;
+            }
+            h1 { margin: 0; }
+            .billto {
+            float: right;
+            width: 300px;
+            }
+            .invoice-section {
+            margin-top: 25px;
+            font-size: 16px;
+            }
+            .field-label {
+            font-weight: bold;
+            margin-top: 12px;
+            margin-bottom: 4px;
+            }
+            table.in {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            }
+            table.in th, table.in td {
+            border: 1px solid #444;
+            padding: 8px;
+            vertical-align:top;
+            }
+            textarea { height: 60px; }
+            .total {
+            text-align: right;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            }
+            .footer-text {
+            margin-top: 40px;
+            font-size: 14px;
+            text-align: center;
+            }
+            .clear { clear: both; }
