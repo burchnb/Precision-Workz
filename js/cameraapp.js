@@ -38,6 +38,18 @@ export async function initWebcam() {
         console.error("Error accessing camera: ", err);
     }
 }
+export function stopCamera() {
+  const stream = video.srcObject;
+  
+  if (stream) {
+    // Stop all video and audio tracks to turn off the camera hardware light
+    const tracks = stream.getTracks();
+    tracks.forEach(track => track.stop());
+    
+    // Clear the video source
+    video.srcObject = null;
+  }
+}
 
 function cameraShutter(){
     setTimeout(function(){
@@ -84,12 +96,9 @@ function captureImage() {
     runGemini(optimizedDataUrl);
 }
 
-
-
-
-
     async function runGemini(file){
-     const captureButton = document.getElementById('capture-btn');
+              const cameraContainer = document.getElementById("camera-container");
+     const captureButton = document.getElementById("capture-btn");
         const apiKey = sessionStorage.getItem("apiKey");
 
 const ai = new GoogleGenAI({apiKey});
@@ -166,8 +175,8 @@ console.log('generatecontent');
         captureButton.disabled = false;
         captureButton.classList.remove("disabled-btn");
         captureButton.innerText = "Capture Photo";
-        const cameraContainer = document.getElementById("camera-container");
         cameraContainer.classList.add("hidden");
+        stopCamera();
         exp.validateReceiptData(JSON.parse("["+resultText+"]"));
       } catch (err) {
         if(numTries < 3){
@@ -181,6 +190,8 @@ console.log('generatecontent');
         captureButton.disabled = false;
         captureButton.classList.remove("disabled-btn");
         captureButton.innerText = "Capture Photo";
+        cameraContainer.classList.add("hidden");
+        stopCamera();
       }
       }
     }
