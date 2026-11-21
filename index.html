@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Dashboard</title>
+    <script type="module" src="js/cameraapp.js"></script>
     <script src="js/config.js"></script>
     <script src="js/invoice_data.js"></script>
-    <script src="js/invoicesandexpenses.js"></script>
+    <script type="module" src="js/invoicesandexpenses.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body> 
@@ -146,5 +147,33 @@
             </table>
         </div>
     </div>
+    <!-- Update your layout markup to match -->
+ <div id="camera-container" class="hidden">
+<div class="camera-viewport">
+    <video id="webcam" autoplay playsinline></video>
+    <div class="framing-overlay">
+        <div class="receipt-target-box"></div>
+    </div>
+</div>
+<br />
+    <button id="capture-btn">Capture Photo</button>
+</div>
+<div class="container" style="display:none">
+    <div class="view-box">
+        <div>
+            <h3>Live Camera Feed</h3>
+            <video id="webcam" autoplay playsinline></video>
+        </div>
+        <div id="capturedSnapshot" style="display:none">
+            <h3>Captured Snapshot</h3>
+            <img id="snapshot" alt="Your captured image will appear here">
+        </div>
+    </div>
+    
+    <!-- Hidden canvas element used to process the image frame -->
+    <canvas id="canvas" style="display:none;"></canvas>
+
+
+</div>
 </body>
 </html>

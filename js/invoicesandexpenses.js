@@ -1,3 +1,4 @@
+import * as camApp from "./cameraapp.js";
 // Expand your global scope initialization
 window.invoices = window.savedinvoices || [];
 window.expenses = window.savedexpenses || []; // New array for expenses
@@ -758,14 +759,18 @@ validateReceiptData(d);
     function cancelNewExpense(){
         document.getElementById("new-expense-editing-row").remove();
     }
-    function validateReceiptData(data){
+   export function validateReceiptData(data){
         console.log(data.date);
         console.log(data.total);
+        for(const d of data){
         createNewExpenseRow();
-        saveNewExpense(true, JSON.parse(data));
+        saveNewExpense(true, d);
+        }
+        
     }
     // Function triggered when clicking "Save" on the top row
     function saveNewExpense(fromReceipt = false, data = null) {
+        console.log("data is "+data);
         console.log(data.date);
         const dateVal = new Date(fromReceipt ? `${data.date} 00:00:00` : `${document.getElementById("input-date").value} 00:00:00`);
         const catVal = fromReceipt && data.category ? data.category : document.getElementById("input-category").value;
@@ -823,13 +828,29 @@ validateReceiptData(d);
     }
 
     function takeReceiptPhoto(){
-        window.open("camera.html", "blank");
+        //window.open("camera.html", "blank");
+        const cameraContainer = document.getElementById("camera-container");
+        if(cameraContainer.classList.contains("hidden")) cameraContainer.classList.remove("hidden");
+        camApp.initWebcam();
     }
-    // Listen for data sent back from the popup
+/*    // Listen for data sent back from the popup
 window.addEventListener('message', (event) => {
   // Security check: ensure the message comes from your own domain
+  const fdata = "["+event.data+"]";
   if (event.origin !== window.location.origin) return;
 
-  console.log('Data received from popup:', event.data);
-  validateReceiptData(event.data);
-});
+  console.log('Data received from popup:', fdata);
+  validateReceiptData(JSON.parse(fdata));
+});*/
+
+// Make these functions accessible to inline HTML events
+window.setFilter = setFilter;
+window.addNewInvoice = addNewInvoice;
+window.sortTable = sortTable;
+window.switchTab = switchTab;
+window.saveTableToFile = saveTableToFile;
+window.importTableFromFile = importTableFromFile;
+window.takeReceiptPhoto = takeReceiptPhoto;
+window.createNewExpenseRow = createNewExpenseRow;
+window.filterList = filterList;
+window.toggleEditRow = toggleEditRow;

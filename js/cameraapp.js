@@ -1,14 +1,15 @@
+import * as exp from "./invoicesandexpenses.js";
 import { GoogleGenAI, Type } from "https://esm.sh/@google/genai";
-const statusText = document.getElementById('ocr-status');
-const resultText = document.getElementById('ocr-result');
+//const statusText = document.getElementById('ocr-status');
+let resultText = [];
 const video = document.getElementById('webcam');
 const canvas = document.getElementById('canvas');
 const captureBtn = document.getElementById('capture-btn');
 const snapshotImg = document.getElementById('snapshot');
-
+let numTries = 1;
 let videoTrack = null; // Store the video track globally to control zoom later
 
-async function initWebcam() {
+export async function initWebcam() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ 
             video: { 
@@ -95,10 +96,10 @@ const ai = new GoogleGenAI({apiKey});
 captureBtn.disabled = true;
 captureBtn.classList.add("disabled-btn");
 captureBtn.innerText = "Please wait...";
-      statusText.textContent = "Scanning receipt...";
+      //statusText.textContent = "Scanning receipt...";
 
       try {
- 
+        numTries +=1;
         const base64Data = file.split(",")[1];//await fileToBase64(file);
 
         // Enforce strict JSON output structure
@@ -157,18 +158,30 @@ console.log('generatecontent');
 
         // Parse and display formatted JSON
         const parsedData = JSON.parse(response.text);
-        resultText.textContent = JSON.stringify(parsedData, null, 2);
-
-        alert(resultText.textContent);
-        statusText.textContent = "Ready";
+        //resultText += resultText.length === 0 ? JSON.stringify(parsedData, null, 2) : ",\n" + JSON.stringify(parsedData, null, 2);
+        //resultText += parsedData;
+        resultText = JSON.stringify(parsedData, null, 2);
+        alert(resultText);
+        //statusText.textContent = "Ready";
         captureButton.disabled = false;
         captureButton.classList.remove("disabled-btn");
         captureButton.innerText = "Capture Photo";
+        const cameraContainer = document.getElementById("camera-container");
+        cameraContainer.classList.add("hidden");
+        exp.validateReceiptData(JSON.parse("["+resultText+"]"));
       } catch (err) {
-        resultText.textContent = "Error: " + err.message;
+        if(numTries < 3){
+          console.log("messup");
+          setTimeout(() => {
+            runGemini(file);
+         }, 3000);
+      }
+      else{
+        alert("Error: " + err.message);
         captureButton.disabled = false;
         captureButton.classList.remove("disabled-btn");
         captureButton.innerText = "Capture Photo";
+      }
       }
     }
 
@@ -180,11 +193,17 @@ captureBtn.addEventListener('click', function(e){
 });
 
 // Automatically start webcam when page loads
-window.addEventListener('load', initWebcam);
+/*window.addEventListener('load', initWebcam);
     // Native browser event listener to block accidental tab closures
     window.addEventListener("beforeunload", (event) => {
         if(window.opener && !window.opener.closed){
-            window.opener.postMessage(resultText.textContent, window.location.origin);
+            window.opener.postMessage(resultText, window.location.origin);
         }
         window.close();
-    });
+    });*/
+  /*      function takeReceiptPhoto(){
+        //window.open("camera.html", "blank");
+        const cameraContainer = document.getElementById("camera-container");
+        if(cameraContainer.classList.contains("hidden")) cameraContainer.classList.remove("hidden");
+        initWebcam();
+    }*/
