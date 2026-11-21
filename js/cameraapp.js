@@ -90,7 +90,7 @@ function captureImage() {
 
     async function runGemini(file){
      const captureButton = document.getElementById('capture-btn');
-        const apiKey = "AQ.Ab8RN6KxpNYiTAXpbQKneZ5oJ84sZkPB7wvurLHw6PZeWhQN6Q";
+        const apiKey = sessionStorage.getItem("apiKey");
 
 const ai = new GoogleGenAI({apiKey});
 captureBtn.disabled = true;

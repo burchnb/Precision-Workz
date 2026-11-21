@@ -324,9 +324,17 @@ document.addEventListener("DOMContentLoaded", function() {
     // NEW FUNCTION: Compiles both datasets, wraps them into a single text file stream, and initiates saving
     async function saveTableToFile() {
         // 1. Transform both data object arrays directly into structured code syntax strings
-        let dataStr = "var savedinvoices = " + JSON.stringify(window.invoices, null, 4) + ";\n" +
-                    "var savedexpenses = " + JSON.stringify(window.expenses, null, 4) + ";";
+       // let dataStr = "var savedinvoices = " + JSON.stringify(window.invoices, null, 4) + ";\n" +
+         //           "var savedexpenses = " + JSON.stringify(window.expenses, null, 4) + ";";
         
+         let dataStr = JSON.parse(`{"data": {"apiKey" : ${null},"savedinvoices":[],"savedexpenses":[]}}`)
+
+        dataStr.data.apiKey = sessionStorage.getItem("apiKey"); 
+        dataStr.data.savedinvoices = window.invoices;
+        dataStr.data.savedexpenses = window.expenses;
+        
+        dataStr = JSON.stringify(dataStr, null, 4);
+
         try {
             // 2. Open the browser's native "Save As" dialog picker (Corrected lower-case startIn property)
             const handle = await window.showSaveFilePicker({
@@ -389,29 +397,35 @@ document.addEventListener("DOMContentLoaded", function() {
                 const rawText = e.target.result;
                 let parsedInvoices = null;
                 let parsedExpenses = null;
+                let apiKey = null;
 
                 // 1. Check if the incoming file is using the new dual-array variable format
-                if (rawText.includes("var savedexpenses =")) {
-                    console.log("Detecting dual-dataset architecture...");
-                    
+             //   if (rawText.includes("var savedexpenses =")) {
+                    console.log("Parsing JSON Data from file...");                
+                    const parsedString = JSON.parse(rawText);
                     // Clean prefixes, extract data content boundaries, and strip trailing semicolons
-                    const invString = rawText.split("var savedexpenses =")[0]
+                 /*   const invString = rawText.split("var savedexpenses =")[0]
                                             .replace("var savedinvoices =", "")
                                             .trim().replace(/;$/, "");
-                    const expString = rawText.split("var savedexpenses =")[1]
-                                            .trim().replace(/;$/, "");
-
-                    parsedInvoices = JSON.parse(invString);
-                    parsedExpenses = JSON.parse(expString);
-                } 
+                    const expString = rawText.split("var savedexpenses =")[1].trim().replace(/;$/, "");
+                    const apiString = rawText.split("const apiKey =")[1].trim();
+*/
+                //    parsedInvoices = JSON.parse(invString);
+                  //  parsedExpenses = JSON.parse(expString);
+                    parsedInvoices = parsedString.data.savedinvoices;
+                    parsedExpenses = parsedString.data.savedexpenses;
+                    apiKey = parsedString.data.apiKey.trim();
+                    sessionStorage.setItem("apiKey", apiKey);
+              //  } 
                 // 2. Legacy Fallback: Process older file snapshots containing only invoice records
-                else {
+        /*        else {
                     console.log("Detecting legacy single-dataset architecture...");
                     const singleCleanedString = rawText.replace("var savedinvoices =", "").trim().replace(/;$/, "");
                     parsedInvoices = JSON.parse(singleCleanedString);
                     parsedExpenses = []; // Initialize blank array for legacy imports
-                }
-
+                }*/
+console.log(Array.isArray(parsedInvoices));
+console.log(Array.isArray(parsedExpenses));
                 // 3. Structural Validation & Variable State Assignment
                 if (Array.isArray(parsedInvoices) && Array.isArray(parsedExpenses)) {
                     // Ensure all imported invoices possess a hidden creation timestamp tracker
