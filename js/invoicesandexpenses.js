@@ -425,7 +425,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         return inv;
                     });
 
-                    const standardizedExpenses = parsedInvoices.map(exp => {
+                    const standardizedExpenses = parsedExpenses.map(exp => {
                         if (!exp.createdTimestamp) {
                             exp.createdTimestamp = exp.date ? new Date(exp.date).getTime() : Date.now();
                         }
