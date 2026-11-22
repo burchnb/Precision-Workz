@@ -425,6 +425,16 @@ document.addEventListener("DOMContentLoaded", function() {
                         return inv;
                     });
 
+                    const standardizedExpenses = parsedInvoices.map(exp => {
+                        if (!exp.createdTimestamp) {
+                            exp.createdTimestamp = exp.date ? new Date(exp.date).getTime() : Date.now();
+                        }
+                        if (!exp.id){
+                            exp.id = new Date.now().toString();
+                        }
+                        return exp;
+                    });
+
                     // Securely reset and populate the global window namespaces to maintain referencing anchors
                     if (!window.invoices) window.invoices = [];
                     if (!window.expenses) window.expenses = [];
@@ -433,7 +443,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     window.invoices.push(...standardizedInvoices);
 
                     window.expenses.length = 0;
-                    window.expenses.push(...parsedExpenses);
+                    window.expenses.push(...standardizedExpenses);
 
                     console.log("Import success! Invoices:", window.invoices, "Expenses:", window.expenses);
                     console.log("activeTab context:", activeTab);
