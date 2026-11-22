@@ -430,7 +430,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             exp.createdTimestamp = exp.date ? new Date(exp.date).getTime() : Date.now();
                         }
                         if (!exp.id){
-                            exp.id = new Date.now().toString();
+                            exp.id = Date.now().toString();
                         }
                         return exp;
                     });
