@@ -322,24 +322,35 @@ document.addEventListener("DOMContentLoaded", function() {
         dataStr.settings = customerSettings;
         
         dataStr = JSON.stringify(dataStr, null, 4);
-
+        const filename = "invoice_data.json";
+        const mimeType = "application/json";
+        const file = new File([dataStr], filename, {type: mimeType });
         try {
-            // 2. Open the browser's native "Save As" dialog picker (Corrected lower-case startIn property)
-            const handle = await window.showSaveFilePicker({
-                suggestedName: 'invoice_data.json',
-                startIn: 'downloads', 
-                types: [{
-                    description: 'JSON Files',
-                    accept: { 'application/javascript': ['.json'] }
-                }],
-            });
+            if("showSaveFilePicker" in window){
+                const handle = await window.showSaveFilePicker({
+                    suggestedName: filename,
+                    startIn: 'downloads', 
+                    types: [{
+                        description: 'JSON Files',
+                        accept: { mimeType: ['.json'] }
+                    }],
+                });
 
-            // 3. Create a writable stream to the chosen file
-            const writable = await handle.createWritable();
-            
-            // 4. Write the double-dataset bundle and close the stream
-            await writable.write(dataStr);
-            await writable.close();
+                // 3. Create a writable stream to the chosen file
+                const writable = await handle.createWritable();
+                
+                // 4. Write the double-dataset bundle and close the stream
+                await writable.write(dataStr);
+                await writable.close();
+            }
+            else if(navigator.canShare && navigator.canShare({files:[file]})){
+                await navigator.share({
+                    files: [file],
+                    title: filename
+                });
+            }
+            // 2. Open the browser's native "Save As" dialog picker (Corrected lower-case startIn property)
+
             
             // 🎉 SUCCESS: Clear the unsaved flag so the user can navigate away safely
             isUnsaved = false;
@@ -355,7 +366,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'invoice_data.js';
+                a.download = 'invoice_data.json';
                 document.body.appendChild(a);
                 
                 a.click(); // Trigger layout click simulation
