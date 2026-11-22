@@ -6,7 +6,7 @@ const video = document.getElementById('webcam');
 const canvas = document.getElementById('canvas');
 const captureBtn = document.getElementById('capture-btn');
 const snapshotImg = document.getElementById('snapshot');
-let numTries = 1;
+let numTries = 0;
 let videoTrack = null; // Store the video track globally to control zoom later
 
 export async function initWebcam() {
@@ -116,19 +116,13 @@ captureBtn.innerText = "Please wait...";
           type: Type.OBJECT,
           properties: {
             vendor: { type: Type.STRING, description: "Store or merchant name" },
+            state: { type: Type.STRING, description: "Two-letter US state code (e.g., MS, TX) if visible or determinable; null if unknown" },
             date: { type: Type.STRING, description: "YYYY-MM-DD format if visible" },
             total: { type: Type.NUMBER, description: "Final total paid" },
             tax: { type: Type.NUMBER, description: "Total tax amount" },
             category: {
               type: Type.STRING,
-              enum: [
-                "Fuel",
-                "Maintenance",
-                "Equipment",
-                "Lodging",
-                "Food",
-                "Other"
-              ]
+              enum: configuration.expenseCats
             },
             description: { type: Type.STRING, description: "Name of item and how many units of each item" },
             items: {
@@ -145,7 +139,7 @@ captureBtn.innerText = "Please wait...";
               }
             }
           },
-          required: ["date","vendor", "total", "items", "description"]
+          required: ["date","vendor", "total", "items", "description", "state"]
         };
 console.log('generatecontent');
         const response = await ai.models.generateContent({
@@ -167,6 +161,7 @@ console.log('generatecontent');
 
         // Parse and display formatted JSON
         const parsedData = JSON.parse(response.text);
+        console.log(parsedData);
         //resultText += resultText.length === 0 ? JSON.stringify(parsedData, null, 2) : ",\n" + JSON.stringify(parsedData, null, 2);
         //resultText += parsedData;
         resultText = JSON.stringify(parsedData, null, 2);
@@ -180,7 +175,7 @@ console.log('generatecontent');
         exp.validateReceiptData(JSON.parse("["+resultText+"]"));
       } catch (err) {
         if(numTries < 3){
-          console.log("messup");
+          console.log("something happened, trying again (" + numTries + " of 3)...");
           setTimeout(() => {
             runGemini(file);
          }, 3000);

@@ -2,6 +2,7 @@ import * as camApp from "./cameraapp.js";
 // Expand your global scope initialization
 window.invoices = window.savedinvoices || [];
 window.expenses = window.savedexpenses || []; // New array for expenses
+let customerSettings = null;
 let currentFilter, currentExpenseFilter = "all";
 let activeTab = "invoices"; // Tracks 'invoices' or 'expenses'
 let isUnsaved = false;
@@ -19,22 +20,8 @@ const dashboardFormatter = new Intl.NumberFormat("en-US", {
 });
 document.addEventListener("DOMContentLoaded", function() {
     setTimeout(() => {
-        const logoEl = document.getElementsByClassName("logo-png")[0];
-        if(logoEl) {logoEl.src = configuration.logoimg;}
+        applyCustomerSettings();
     }, 0);
-    const expCatField = document.getElementById("expenseCategory");
-    const catButtonsHTML = [];
-    catButtonsHTML.push('<button class="filter-btn active" id="exp-filter-all" data-category="all">All</button>');
-    for(const cat of configuration.expenseCats){
-        catButtonsHTML.push('<button class="filter-btn" id="exp-filter-'+cat.toLowerCase()+'" data-category="'+cat.toLowerCase()+'">'+cat+'</button>');
-    }
-    expCatField.innerHTML += catButtonsHTML.join("");
-    expCatField.addEventListener("click", (event) => {
-        const targetButton = event.target.closest(".filter-btn");
-        if(!targetButton) return;
-        const selectedCategory = targetButton.dataset.category;
-        setFilter(selectedCategory, "expenses");
-    });
 });
     // Native browser event listener to block accidental tab closures
     window.addEventListener("beforeunload", (event) => {
@@ -217,11 +204,11 @@ document.addEventListener("DOMContentLoaded", function() {
         dropDownCell.innerHTML = '<select class="status-select"></select>';
         const ddSelect = dropDownCell.querySelector('select');
         if(nameType === "exp"){
-            for(const cat of configuration.expenseCats){
+            for(const cat of customerSettings.expenseCats){
                 ddSelect.innerHTML += '<option value="' + cat + '">' + cat + '</option>';
             }
         } else {
-            for(const status of configuration.invoiceStatus){
+            for(const status of customerSettings.invoiceStatus){
                 ddSelect.innerHTML += '<option value="' + status.toLowerCase() + '">' + status + '</option>';
             }
             ddSelect.value = currentDropDownChoice;
@@ -327,22 +314,23 @@ document.addEventListener("DOMContentLoaded", function() {
        // let dataStr = "var savedinvoices = " + JSON.stringify(window.invoices, null, 4) + ";\n" +
          //           "var savedexpenses = " + JSON.stringify(window.expenses, null, 4) + ";";
         
-         let dataStr = JSON.parse(`{"data": {"apiKey" : ${null},"savedinvoices":[],"savedexpenses":[]}}`)
+         let dataStr = JSON.parse(`{"data":{}}`);
 
-        dataStr.data.apiKey = sessionStorage.getItem("apiKey"); 
+        dataStr.apiKey = sessionStorage.getItem("apiKey"); 
         dataStr.data.savedinvoices = window.invoices;
         dataStr.data.savedexpenses = window.expenses;
+        dataStr.settings = customerSettings;
         
         dataStr = JSON.stringify(dataStr, null, 4);
 
         try {
             // 2. Open the browser's native "Save As" dialog picker (Corrected lower-case startIn property)
             const handle = await window.showSaveFilePicker({
-                suggestedName: 'invoice_data.js',
+                suggestedName: 'invoice_data.json',
                 startIn: 'downloads', 
                 types: [{
-                    description: 'JS Files',
-                    accept: { 'application/javascript': ['.js'] }
+                    description: 'JSON Files',
+                    accept: { 'application/javascript': ['.json'] }
                 }],
             });
 
@@ -403,6 +391,8 @@ document.addEventListener("DOMContentLoaded", function() {
              //   if (rawText.includes("var savedexpenses =")) {
                     console.log("Parsing JSON Data from file...");                
                     const parsedString = JSON.parse(rawText);
+                    customerSettings = parsedString.settings;
+                    applyCustomerSettings();
                     // Clean prefixes, extract data content boundaries, and strip trailing semicolons
                  /*   const invString = rawText.split("var savedexpenses =")[0]
                                             .replace("var savedinvoices =", "")
@@ -414,7 +404,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   //  parsedExpenses = JSON.parse(expString);
                     parsedInvoices = parsedString.data.savedinvoices;
                     parsedExpenses = parsedString.data.savedexpenses;
-                    apiKey = parsedString.data.apiKey.trim();
+                    apiKey = parsedString.apiKey.trim();
                     sessionStorage.setItem("apiKey", apiKey);
               //  } 
                 // 2. Legacy Fallback: Process older file snapshots containing only invoice records
@@ -424,8 +414,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     parsedInvoices = JSON.parse(singleCleanedString);
                     parsedExpenses = []; // Initialize blank array for legacy imports
                 }*/
-console.log(Array.isArray(parsedInvoices));
-console.log(Array.isArray(parsedExpenses));
+
                 // 3. Structural Validation & Variable State Assignment
                 if (Array.isArray(parsedInvoices) && Array.isArray(parsedExpenses)) {
                     // Ensure all imported invoices possess a hidden creation timestamp tracker
@@ -524,21 +513,20 @@ console.log(Array.isArray(parsedExpenses));
                                         <table>
                                             <tr>
                                                 <th>
-                                                <img class="logo-png" src="${configuration.logoimg}" alt="Precision Workz, LLC Logo">
+                                                <img class="logo-png" src="${customerSettings.logoimg}" alt="${customerSettings.companyName}">
                                                 </th>
                                                 <th>
                                                     <span style="font-size:40px; vertical-align:middle;">
-                                                        Precision<br>Workz, LLC
+                                                        ${customerSettings.companyName}
                                                     </span>
                                                 </th>
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="company-info">
-                                                        220 Love Rd.<br>
-                                                        Kosciusko, MS 39090<br>
-                                                        P: 662-770-0172<br>
-                                                        precisionworkzllc2025@gmail.com
+                                                        ${customerSettings.companyAddress}<br><br>
+                                                        P: ${customerSettings.companyPhone}<br>
+                                                        ${customerSettings.companyEmail}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -591,7 +579,7 @@ console.log(Array.isArray(parsedExpenses));
                                 </div>
 
                                 <div class="footer-text">
-                                    Please make all checks payable to Precision Workz, LLC.<br>
+                                    Please make all checks payable to ${customerSettings.companyName}<br>
                                     Total due in 30 days. Overdue accounts subject to a service charge of 1.5% per month.
                                 </div>
 
@@ -754,28 +742,10 @@ function renderTable(filteredList = null) {
         // Force the edit inputs to stay pinned at the very top of the visual stack
         expenseTableBody.prepend(editRow);
     }
-    function mimicReceipt(){
-        const d = `{
-  "date": "2026-11-11",
-  "vendor": "Fast Lane Valero",
-  "total": 20,
-  "items": [
-    {
-      "name": "Regular Gasoline",
-      "price": 20,
-      "quantity": 5.264
-    }
-  ]
-}`;
-validateReceiptData(d);
-
-    }
     function cancelNewExpense(){
         document.getElementById("new-expense-editing-row").remove();
     }
    export function validateReceiptData(data){
-        console.log(data.date);
-        console.log(data.total);
         for(const d of data){
         createNewExpenseRow();
         saveNewExpense(true, d);
@@ -784,15 +754,12 @@ validateReceiptData(d);
     }
     // Function triggered when clicking "Save" on the top row
     function saveNewExpense(fromReceipt = false, data = null) {
-        console.log("data is "+data);
-        console.log(data.date);
         const dateVal = new Date(fromReceipt ? `${data.date} 00:00:00` : `${document.getElementById("input-date").value} 00:00:00`);
         const catVal = fromReceipt && data.category ? data.category : document.getElementById("input-category").value;
         const venVal = fromReceipt && data.vendor ? data.vendor : document.getElementById("input-vendor").value;
         const descVal = fromReceipt && data.description ? data.description : document.getElementById("input-desc").value;
         const amtVal = fromReceipt ? data.total : document.getElementById("input-amount").value;
 
-        console.log("dateval is "+dateVal);
         // Validate inputs (ensure date and amount are populated)
         if (!dateVal || !amtVal) return alert("Please fill out Date and Amount.");
 
@@ -847,6 +814,26 @@ validateReceiptData(d);
         if(cameraContainer.classList.contains("hidden")) cameraContainer.classList.remove("hidden");
         camApp.initWebcam();
     }
+
+    function applyCustomerSettings(){
+        console.table(customerSettings);
+        const logoEl = document.getElementsByClassName("logo-png")[0];
+        if(logoEl) {logoEl.src = customerSettings.logoimg;}
+        document.getElementById("company-title").innerText = customerSettings.companyName;
+           const expCatField = document.getElementById("expenseCategory");
+    const catButtonsHTML = [];
+    catButtonsHTML.push('<button class="filter-btn active" id="exp-filter-all" data-category="all">All</button>');
+    for(const cat of customerSettings.expenseCats){
+        catButtonsHTML.push('<button class="filter-btn" id="exp-filter-'+cat.toLowerCase()+'" data-category="'+cat.toLowerCase()+'">'+cat+'</button>');
+    }
+    expCatField.innerHTML += catButtonsHTML.join("");
+    expCatField.addEventListener("click", (event) => {
+        const targetButton = event.target.closest(".filter-btn");
+        if(!targetButton) return;
+        const selectedCategory = targetButton.dataset.category;
+        setFilter(selectedCategory, "expenses");
+    });
+    }
 /*    // Listen for data sent back from the popup
 window.addEventListener('message', (event) => {
   // Security check: ensure the message comes from your own domain
@@ -868,3 +855,8 @@ window.takeReceiptPhoto = takeReceiptPhoto;
 window.createNewExpenseRow = createNewExpenseRow;
 window.filterList = filterList;
 window.toggleEditRow = toggleEditRow;
+window.openInvoiceWindow = openInvoiceWindow;
+window.cancelNewExpense = cancelNewExpense;
+window.addNewExpense = addNewExpense;
+window.deleteListItem = deleteListItem;
+window.saveNewExpense = saveNewExpense;

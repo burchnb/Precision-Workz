@@ -1,0 +1,17 @@
+// sample data file
+{
+    "data": {
+        "savedinvoices": [],
+        "savedexpenses": []
+    },
+    "settings": {
+        "apiKey": "",
+        "expenseCats" : ["Fuel", "Maintenance", "Equipment", "Lodging", "Food", "Other"],
+        "invoiceStatus" : ["Paid", "Pending", "Overdue"],
+        "logoimg": "",
+        "companyName": "",
+        "companyAddress": "",
+        "companyEmail": "",
+        "companyPhone": ""
+    }
+}

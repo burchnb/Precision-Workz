@@ -16,12 +16,12 @@
         <div class="branding-header">
             <div class="logohdr">
                 <img class="logo-png" src="" alt="Company Logo" />
-                <h1 class="company-title-top">Precision Workz, LLC</h1>
+                <h1 id="company-title" class="company-title-top"></h1>
             </div>
             <div class="btn-group">
                 <button class="save-btn" title="Save to File" onclick="saveTableToFile()">💾 Save to File</button>
                 <label for="import-file-input" class="import-btn-label" title="Import a file">📂 Import File</label>
-                <input type="file" id="import-file-input" accept=".js" onchange="importTableFromFile(event)">
+                <input type="file" id="import-file-input" accept=".json, .jsonc" onchange="importTableFromFile(event)">
             </div>
         </div>
         <div style="clear:both"></div>
