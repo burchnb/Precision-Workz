@@ -329,10 +329,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 try{
                 const handle = await window.showSaveFilePicker({
                     suggestedName: filename,
-                    startIn: 'downloads', 
+                    startIn: "downloads", 
                     types: [{
-                        description: 'JSON Files',
-                        accept: { mimeType: ['.json'] }
+                        description: "JSON Files",
+                        accept: { "application/json": [".json"] }
                     }],
                 });
 
