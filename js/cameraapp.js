@@ -124,7 +124,7 @@ captureBtn.innerText = "Please wait...";
               type: Type.STRING,
               enum: configuration.expenseCats
             },
-            description: { type: Type.STRING, description: "Name of item and how many units of each item" },
+            description: { type: Type.STRING, description: "Name of item and how many units of each item, plus Two-letter US State Code (e.g., MS, TX) if visible" },
             items: {
               type: Type.ARRAY,
               items: {
