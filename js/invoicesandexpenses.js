@@ -350,8 +350,7 @@ document.addEventListener("DOMContentLoaded", function() {
             else if(navigator.canShare && navigator.canShare({files:[file]})){
              try{
                 await navigator.share({
-                    files: [file],
-                    title: filename
+                    files: [file]
                 });
             } catch(err){
                 if(err.name !== "AbortError") alert(err);
