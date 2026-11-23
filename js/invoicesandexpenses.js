@@ -325,8 +325,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const filename = "invoice_data.json";
         const mimeType = "application/json";
         const file = new File([dataStr], filename, {type: mimeType });
-        try {
             if("showSaveFilePicker" in window){
+                try{
                 const handle = await window.showSaveFilePicker({
                     suggestedName: filename,
                     startIn: 'downloads', 
@@ -343,11 +343,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 await writable.write(dataStr);
                 await writable.close();
             }
+            catch(err){
+                if(err.name !== "AbortError") alert(err);
+            }
+            }
             else if(navigator.canShare && navigator.canShare({files:[file]})){
+             try{
                 await navigator.share({
                     files: [file],
                     title: filename
                 });
+            } catch(err){
+                if(err.name !== "AbortError") alert(err);
+            }
             }
             // 2. Open the browser's native "Save As" dialog picker (Corrected lower-case startIn property)
 
@@ -357,7 +365,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log("File saved successfully with Invoices and Expenses!");
             alert("Data successfully saved to file!");
             
-        } catch (err) {
+  /*      } catch (err) {
             // 5. FALLBACK MECHANISM: If the native picker fails or is unsupported (Firefox, Safari, Mobile Chrome)
             console.warn("Native file picker failed/unsupported. Falling back to anchor download...", err);
             
@@ -381,7 +389,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error("Complete save operation failure:", fallbackErr);
                 alert("Failed to save file. Please check browser permissions.");
             }
-        }
+        }*/
     }
 
     // NEW FUNCTION: Reads an uploaded data file stream, maps structural data sets, and targets live rendering sweeps
