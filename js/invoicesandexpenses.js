@@ -763,7 +763,7 @@ function renderTable(filteredList = null) {
         `;
 
             const catSelect = editRow.querySelector("select");
-            for(const cat of configuration.expenseCats){
+            for(const cat of customerSettings.expenseCats){
                 catSelect.innerHTML += '<option value="'+cat+'">'+cat+'</option>;';
             }
 
